@@ -119,23 +119,22 @@ require_once 'styleswitcher.php';
     $acteursListe = $bdd->prepare( "SELECT * FROM joue_dans WHERE id_film =" . $film['id_film']);
     $acteursListe ->execute();
 
-    $acteursListe = $acteursListe->fetch();
-
-    var_dump($acteursListe);
+    while($acteurListe = $acteursListe->fetch()) {
 
     // On récupère les infos des acteurs ayant le même id_acteur que $acteursListe
-    $acteursFilm = $bdd->prepare( "SELECT id_acteur, nom, prenom FROM acteurs WHERE id_acteur =" . $acteursListe->id_acteur);
-    $acteursFilm ->execute();
+        $acteursFilm = $bdd->prepare( "SELECT id_acteur, nom, prenom FROM acteurs WHERE id_acteur =" . $acteurListe['id_acteur']);
+        $acteursFilm ->execute();
 
-    while($acteur->$acteursFilm->fetch() ) {
-    ?>
+        while($acteur = $acteursFilm->fetch() ) {
+        ?>
 
-        <div class="acteur">
-            <img class="img-acteur" src="./img/acteur1.jfif" alt="">
-            <div><?=$acteur['prenom'] . " " . $acteur['nom']?></div>
-        </div>
+            <div class="acteur">
+                <img class="img-acteur" src="./img/acteur1.jfif" alt="">
+                <div><?=$acteur['prenom'] . " " . $acteur['nom']?></div>
+            </div>
 
-    <?php
+        <?php
+        }
     }
     ?>
 
