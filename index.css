@@ -885,6 +885,15 @@ footer{
 
 
 /*---------catalogue----------*/
+.axelcontainer {
+    display: flex;
+}
+
+#catalogue {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
 
 .axeltitreh2 {
     text-align: center;
@@ -898,19 +907,14 @@ footer{
     box-shadow: 2px 4px 5px black;
 }
 
-.axelcontainer {
-    width: 100%;
-    display: flex;
-}
-
-
 .axelgauche {
     background-color: #FF7200;
     font-family: 'Ubuntu', Arial, Helvetica, sans-serif;
-    width: 30%;
     padding-top: 20px;
     padding-bottom: 20px;
     padding-left: 10px;
+    flex-shrink: 0;
+    min-width: 200px;
 }
 
 .axelH5 {
@@ -1003,11 +1007,6 @@ footer{
 
 
 @media only screen and (min-width:1000px){
-
-
-    .axelgauche{
-        width:10%;
-    }
 
     .axeldroite{
         width:90%;
@@ -1292,7 +1291,7 @@ footer{
     height:150px;
     width:150px;
     line-height:150px;
-    font-size:25px;
+    font-size:18px;
     margin-bottom:30px;
    
 }

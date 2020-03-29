@@ -1,7 +1,7 @@
 <!--NOS FILMS-->
 
 
-<h2 class="axeltitreh2">Nos films</h2>
+
 
 <div class="axelcontainer">
 

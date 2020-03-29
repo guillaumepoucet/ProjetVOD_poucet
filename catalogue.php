@@ -44,8 +44,15 @@ require_once 'styleswitcher.php';
 
     <?php
     include 'include/nav.php';
-    include 'include/filtres.php';
-    include 'include/films.php';
+    ?>
+    <div>
+    <h2 class="axeltitreh2">Nos films</h2>
+        <?php 
+        include 'include/filtres.php';
+        include 'include/film_card.php'; 
+        ?>
+    </div>
+    <?php
     include 'include/paracata.php';
     include 'include/footer.php';
     ?>

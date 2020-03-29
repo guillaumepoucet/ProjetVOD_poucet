@@ -16,9 +16,6 @@ require_once 'styleswitcher.php';
     <link rel="stylesheet" type="text/css" href="slick\slick\slick.css" />
     <link rel="stylesheet" type="text/css" href="slick\slick\slick-theme.css" />
 
-
-
-
     <!--CSS-->
 
     <link rel="stylesheet" href="css/reset.css">
@@ -38,12 +35,6 @@ require_once 'styleswitcher.php';
         rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Orbitron:700,800,900|Quicksand:300,400,500,600,700&display=swap"
         rel="stylesheet">
-
-
-
-
-
-
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
