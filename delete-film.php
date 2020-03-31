@@ -1,27 +1,21 @@
 <?php
+session_start();
 header('Content-type: text/html; charset=utf-8');
 require_once 'styleswitcher.php';
-setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR.ISO8859-1');
 ?>
 
+
 <!DOCTYPE html>
-<html lang="fr_FR">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?=$_GET['id']?></title>
-
-    <!--SLICK-->
-
-    <link rel="stylesheet" type="text/css" href="slick\slick\slick.css" />
-    <link rel="stylesheet" type="text/css" href="slick\slick\slick-theme.css" />
-
-    <!--CSS-->
+    <title>Admin - Insérer un film</title>
 
     <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" media="screen, projection" type="text/css" id="css" href="<?php echo $url; ?>" />
 
+    <link rel="stylesheet" media="screen, projection" type="text/css" id="css" href="<?php echo $url; ?>" />
 
     <!--GOOGLE FONTS-->
 
@@ -46,34 +40,45 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR.ISO8859-1');
 
 <body>
 
-    <?php
-    include 'include/nav.php';
+    <?php include 'include/connectBDD.php'; ?>
+    <?php include 'include/nav.php'; ?>
 
-    include 'include/connectBDD.php';
+    <section class="admin">
 
-    $id = $_GET['id'];
+        <h3>Bienvenue, <?=$_SESSION['prenom']?></h3>
 
-    $req = $bdd->prepare('SELECT * FROM acteurs WHERE id_acteur =' . $id);
-    $req ->execute();
-    
-    $acteur = $req->fetch();
-    ?>
-    <section class="fiche-acteur">
-        <img src="<?=$acteur['portrait']?>" alt="">
-        <h2><?=ucwords($acteur['prenom'] . " " . $acteur['nom'])?></h2>
+        <a href="">Supprimer un film</a>
+        <a href="admin.php">Insérer un film</a>
+        <h2>Ajouter un film</h2>
 
-        <div class="orbituary">
-            <p>Née le <?=strftime('%e %B %Y', strtotime($acteur['datebirth']))?></p>
-            <?php if (isset($acteur['datedeath'])):?>
-            <p>Décédé le <?=strftime('%e %B %Y', strtotime($acteur['datedeath']))?></p>
-            <?php endif ?>
+        <div class="insert-film">
+            <form action="film-delete.php" method="POST">
+                <label for="films"><b>Sélectionner un film par son titre :</b></label>
+                <select name="films" id="films">
+
+                <?php 
+
+                $req = $bdd->prepare('SELECT * FROM films');
+                $req ->execute();
+
+                while($films = $req->fetch()) {
+                ?>
+                    <option value="<?=$films['id_film']?>"><?=$films['nom']?></option>
+                <?php
+                }
+                ?>
+                </select>
+
+                <input type="submit" value="Submit">
+
+            </form>
         </div>
 
-        <p><?=$acteur['bio']?></p>
+
+
 
     </section>
 
-    <?php include 'include/footer.php';?>
 
 </body>
 

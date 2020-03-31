@@ -54,25 +54,22 @@ require_once 'styleswitcher.php';
     <?php include 'include/nav.php'; ?>
 
 
-<div class="contact-form">
-  <form action="contact-form.php">
+<div class="signin-form">
+  <form action="signin.php" method="POST">
 
-    <label for="prenom">Prénom</label>
-    <input type="text" id="fname" name="prenom" placeholder="Votre prénom">
+      <label for="nom">Nom</label>
+      <input type="text" id="lname" name="nom" placeholder="Votre nom">
+      
+      <label for="prenom">Prénom</label>
+      <input type="text" id="fname" name="prenom" placeholder="Votre prénom">
 
-    <label for="nom">Nom</label>
-    <input type="text" id="lname" name="nom" placeholder="Votre nom">
-
-    <label for="sujet">Mail</label>
-    <input type="email" id="sujet" name="mail" placeholder="Votre adresse mail">
+    <label for="mail">login</label>
+    <input type="text" id="login" name="login" placeholder="Login souhaité">
     
-    <label for="sujet">Sujet</label>
-    <input type="text" id="sujet" name="sujet" placeholder="Sujet de votre message">
-    
-    <label for="sujet">Sujet</label>
-    <input id="sujet" name="sujet" placeholder="Sujet de votre message" style="height:200px"></textarea>
-
-    <input type="submit" value="Submit">
+    <label for="sujet">Mot de passe</label>
+    <input type="text" id="motdepasse" name="motdepasse" placeholder="Mot de passe souhaité">
+        
+    <input class="ok"type="submit" id='submit' value="S'inscrire">
 
   </form>
 </div>

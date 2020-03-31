@@ -178,9 +178,28 @@ input {
     font-family: 'Ubuntu', Arial, Helvetica, sans-serif;
 }
 
-.search-button {
+.search-button,
+.signin-link {
     background-color: #FF7200;
     border: 5px solid #FF7200;
+}
+
+.signin-link {
+    color: white;
+    text-decoration: none;
+    margin: 20px;
+}
+
+.connect-form {
+    margin-bottom: 30px;
+}
+
+.signin-form {
+    display: inline-grid;
+    margin: 30px;
+    color: white;
+    display: flex;
+    flex-direction: column;
 }
 
 .search-button:hover {
@@ -1533,4 +1552,15 @@ label {
 
 .fiche-genre {
     text-align: center;
+}
+
+/* CSS admin.php */
+
+.admin {
+    margin-top: 60px;
+    color: white;
+}
+
+.insert-film form {
+    margin: 30px;
 }
