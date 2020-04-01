@@ -1,4 +1,6 @@
 <?php
+require_once 'functions/auth.php';
+online();
 header('Content-type: text/html; charset=utf-8');
 require_once 'styleswitcher.php';
 setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR.ISO8859-1');
@@ -225,6 +227,13 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR.ISO8859-1');
 
     <?php 
     }
+    $photosFilm->closeCursor();
+    $realFilm->closeCursor();
+    $realsListe->closeCursor();
+    $acteurListe->closeCursor();
+    $acteursFilm->closeCursor();
+    $genres->closeCursor();
+    $req->closeCursor();
     ?>
 
     </div>

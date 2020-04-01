@@ -1,5 +1,6 @@
 <?php
-session_start();
+require_once 'functions/auth.php';
+session();
 header('Content-type: text/html; charset=utf-8');
 require_once 'styleswitcher.php';
 ?>

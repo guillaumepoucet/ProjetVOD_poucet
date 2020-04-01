@@ -1,5 +1,6 @@
 <?php
-session_start();
+require_once 'functions/auth.php';
+user_online();
 header('Content-type: text/html; charset=utf-8');
 require_once 'styleswitcher.php';
 ?>
@@ -45,61 +46,29 @@ require_once 'styleswitcher.php';
 
     <section class="admin">
 
-        <h3>Bienvenue, <?=$_SESSION['prenom']?></h3>
-
-        <a href="">Modifier un film</a>
-        <a href="delete-film.php">Supprimer un film</a>
-        <h2>Ajouter un film</h2>
-
-        <div class="insert-film">
-            <form action="insert-film.php" method="POST">
-
-                <label for="nom">Titre du film</label>
-                <input type="text" id="nom" name="nom" placeholder="Titre du film"><br>
-
-                <label for="dateSortie">Date de sortie</label>
-                <input type="date" id="dateSortie" name="dateSortie" placeholder="Date de sortie"><br>
-
-                <label for="trailer">Trailer</label>
-                <input type="text" id="trailer" name="trailer" placeholder="Lien du trailer"><br>
-
-                <label for="duree">Durée</label>
-                <input type="number" id="duree" name="duree" placeholder="Durée du film"><br>
-                <p>*en minutes</p><br>
-
-                <label for="synopsis">Synopsis</label>
-                <textarea id="sujet" name="synopsis" placeholder="synopsis" style="height:200px"></textarea><br>
-
-                <label for="poster">Affiche</label>
-                <input type="file" id="poster" name="poster"><br>
-
-                <?php
-
-                $req = $bdd->prepare('SELECT * FROM types');
-                $req ->execute();
-
-                while($genres = $req->fetch()) {
-                ?>
-
-                    <input type="checkbox" id="<?=$genres['id_genre']?>" name="<?=$genres['genre']?>" value="<?=$genres['genre']?>">
-                    <label for="<?=$genres['genre']?>"><?=$genres['genre']?></label><br>
-
-                <?php
-                }
-                ?>
-                <br>
-
-                <input type="submit" value="Submit">
-
-            </form>
+        <h2>
+            <center>Bienvenue, <?=ucwords($_SESSION['prenom'])?></center>
+        </h2>
+        <div class="tabs">
+            <div class="tablink" onclick="openPage('filmAdd', this, '#FF7200')" id="defaultOpen">Ajouter un film</div>
+            <div class="tablink" onclick="openPage('filmEdit', this, '#FF7200')">Modifier un film</div>
+            <div class="tablink" onclick="openPage('filmDelete', this, '#FF7200')">Supprimer un film</div>
+        </div>
+        <div id="filmAdd" class="tabcontent">
+            <?php include 'filmAdd.php' ?>
         </div>
 
+        <div id="filmEdit" class="tabcontent">
+            <?php include 'filmEdit.php' ?>
+        </div>
 
-
+        <div id="filmDelete" class="tabcontent">
+            <?php include 'filmDelete.php' ?>
+        </div>
 
     </section>
-
-
+    <?php include 'include/footer.php'; ?>
+    <script src="functions/adminTab.js"></script>
 </body>
 
 </html>

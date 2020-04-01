@@ -13,17 +13,20 @@
     //var_dump($member)
 
     if (!$member) {
-        echo 'Le mot de passe est invalide.';
+        $_GET['erreur'] = "Mauvais identifiant ou mot de passe !";
+        header('location=connexion.php');
     } else {
         if ($motdepasse == $member['motdepasse']) {
         session_start();
+        $_SESSION['online'] = 1;
         $_SESSION['id_user'] = $member['id_user'];
         $_SESSION['nom'] = $member['nom'];
         $_SESSION['prenom'] = $member['prenom'];
         $_SESSION['id_type'] = $member['id_type'];
         header('location: admin.php');
         } else {
-            echo "Mauvais identifiant ou mot de passe !";
+            $_GET['erreur'] = "Mauvais identifiant ou mot de passe !";
+            header('location=connexion.php');
         }
     }
     

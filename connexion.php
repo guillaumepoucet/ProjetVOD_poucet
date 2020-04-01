@@ -1,4 +1,6 @@
 <?php
+require_once 'functions/auth.php';
+session();
 header('Content-type: text/html; charset=utf-8');
 require_once 'styleswitcher.php';
 ?>
@@ -62,9 +64,7 @@ include 'include/nav.php'; ?>
 
             <?php
             if(isset($_GET['erreur'])){
-                $err = $_GET['erreur'];
-                if($err==1 || $err==2)
-                    echo "<p style='color:red'>Utilisateur ou mot de passe incorrect</p>";
+                echo $_GET['erreur'];
             }
             ?> 
 

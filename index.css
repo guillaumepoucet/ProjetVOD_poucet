@@ -1,5 +1,6 @@
 body {
     background-color: #121111;
+    height: 100%;
 }
 
 .nav-dada {
@@ -705,7 +706,7 @@ FOOTER {
 
 
     .menu-dada ul {
-        float: right;
+        display: flex;
         list-style: none;
 
     }
@@ -719,7 +720,9 @@ FOOTER {
         display: inline-block;
     }
 
-    .menu-nav ul li a {
+    .menu-nav ul li a,
+    #bonjour,
+    .admin h2 {
         display: inline-block;
         text-decoration: none;
         color: #FF7200;
@@ -1555,6 +1558,38 @@ label {
 }
 
 /* CSS admin.php */
+
+.admin h2 {
+    display: block;
+    font-size: 40px;
+}
+
+/* Style tab links */
+
+.tabs {
+    display: flex;
+    background-color: #FF7200;
+}
+
+.tablink {
+    background-color: #555;
+    color: white;
+    cursor: pointer;
+    font-size: 17px;
+    padding: 10px 25px;
+}
+
+.tablink:hover {
+    background-color: #777;
+}
+
+/* Style the tab content (and add height:100% for full page content) */
+.tabcontent {
+    color: white;
+    display: none;
+    padding: 100px 20px;
+    height: 100%;
+}
 
 .admin {
     margin-top: 60px;

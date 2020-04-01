@@ -9,8 +9,9 @@
         <div>
             <div>
                 <ul>
-                    <Li><a href="catalogue.php">Films</a></Li>
-                    <Li><a href="connexion.php">Connexion</a></Li>
+
+                    <li><a href="catalogue.php">Films</a></li>
+                    <li><a href="connexion.php">Connexion</a></li>
                         <div class="liens-couleurs">
 
                     <li>
@@ -77,8 +78,16 @@
                 <li>
                     <div class="style_ilayda"><a href="<?php echo $actuel; ?>?style=index.css"></a></div>
                 </li>
-                <li><a href="catalogue.php">Films</a></li>
-                <li><a href="connexion.php">Connexion</a></li>
+                <?php if (online()): ?>
+                    <li id="bonjour">Bonjour <?=ucwords($_SESSION['prenom'])?></li>
+                    <?php endif ?>
+                    <li><a href="catalogue.php">Films</a></li>
+                    <?php if (online()): ?>
+                        <li><a href="admin.php">Mon compte</a></li>
+                        <li><a href="functions/logout.php">Me déconnecter</a></li>
+                    <?php else: ?>
+                        <li><a href="connexion.php">Connexion</a></li>
+                        <?php endif ?>
             </ul>
         </div>
     </div>
