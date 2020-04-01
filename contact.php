@@ -1,6 +1,6 @@
 <?php
 require_once 'functions/auth.php';
-session();
+online();
 header('Content-type: text/html; charset=utf-8');
 require_once 'styleswitcher.php';
 ?>
@@ -50,53 +50,37 @@ require_once 'styleswitcher.php';
 
     <script src="https://cdn.jsdelivr.net/parallax.js/1.4.2/parallax.min.js"></script>
 
-
 </head>
 
 <body>
-    <?php
-    include 'include/nav.php';
-    include 'include/slider.php';
-    include 'include/affiche.php';
-    include 'include/parallax.php';
-    include 'include/tarifs.php';
-    include 'include/footer.php';
-    ?>
+    <?php include 'include/nav.php'; ?>
 
 
-    <script type="text/javascript" src="slick\slick\slick.min.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function () {
+<div class="contact-form">
+  <form action="contact-form.php">
 
-            $('.center').slick({
-                dots: true,
-                autoplay: true,
-                arrows: true,
-                centerMode: true,
-                centerPadding: '60px',
-                slidesToShow: 3,
-                responsive: [{
-                        breakpoint: 768,
-                        settings: {
-                            arrows: false,
-                            centerMode: true,
-                            centerPadding: '40px',
-                            slidesToShow: 3
-                        }
-                    },
-                    {
-                        breakpoint: 480,
-                        settings: {
-                            arrows: false,
-                            centerMode: true,
-                            centerPadding: '40px',
-                            slidesToShow: 1
-                        }
-                    }
-                ]
-            });
-        });
-    </script>
+    <label for="prenom">Prénom</label>
+    <input type="text" id="fname" name="prenom" placeholder="Votre prénom">
+
+    <label for="nom">Nom</label>
+    <input type="text" id="lname" name="nom" placeholder="Votre nom">
+
+    <label for="sujet">Mail</label>
+    <input type="email" id="sujet" name="mail" placeholder="Votre adresse mail">
+    
+    <label for="sujet">Sujet</label>
+    <input type="text" id="sujet" name="sujet" placeholder="Sujet de votre message">
+    
+    <label for="sujet">Sujet</label>
+    <input id="sujet" name="sujet" placeholder="Sujet de votre message" style="height:200px"></textarea>
+
+    <input type="submit" value="Submit">
+
+  </form>
+</div>
+
+    <?php include 'include/footer.php'; ?>
+
 </body>
 
 </html>

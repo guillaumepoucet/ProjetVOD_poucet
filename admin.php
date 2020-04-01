@@ -1,6 +1,6 @@
 <?php
 require_once 'functions/auth.php';
-session();
+user_online();
 header('Content-type: text/html; charset=utf-8');
 require_once 'styleswitcher.php';
 ?>
@@ -12,10 +12,10 @@ require_once 'styleswitcher.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Connexion</title>
+    <title>Admin - Insérer un film</title>
 
     <link rel="stylesheet" href="css/reset.css">
-    
+
     <link rel="stylesheet" media="screen, projection" type="text/css" id="css" href="<?php echo $url; ?>" />
 
     <!--GOOGLE FONTS-->
@@ -41,42 +41,34 @@ require_once 'styleswitcher.php';
 
 <body>
 
-<?php 
-include 'include/nav.php'; ?>
+    <?php include 'include/connectBDD.php'; ?>
+    <?php include 'include/nav.php'; ?>
 
+    <section class="admin">
 
-  <!-- zone de connexion -->
+        <h2>
+            <center>Bienvenue, <?=ucwords($_SESSION['prenom'])?></center>
+        </h2>
+        <div class="tabs">
+            <div class="tablink" onclick="openPage('filmAdd', this, '#FF7200')" id="defaultOpen">Ajouter un film</div>
+            <div class="tablink" onclick="openPage('filmEdit', this, '#FF7200')">Modifier un film</div>
+            <div class="tablink" onclick="openPage('filmDelete', this, '#FF7200')">Supprimer un film</div>
+        </div>
+        <div id="filmAdd" class="tabcontent">
+            <?php include 'filmAdd.php' ?>
+        </div>
 
-    <div id="container">
-      
+        <div id="filmEdit" class="tabcontent">
+            <?php include 'filmEdit.php' ?>
+        </div>
 
-        <form class="connect-form" action="connect_verif.php" method="POST">
-            <h2>Connexion</h2>
+        <div id="filmDelete" class="tabcontent">
+            <?php include 'filmDelete.php' ?>
+        </div>
 
-            <label><b>login</b></label>
-            <input class="login" type="text" placeholder="Nom d'utilisateur" name="login"> <br>
-
-            <label><b>Mot de passe</b></label>
-            <input class="motdepasse"  type="password" placeholder="Mot de passe" name="motdepasse"><br>
-
-            <input class="ok"type="submit" id='submit' value='LOGIN'> <br>
-
-
-            <?php
-            if(isset($_GET['erreur'])){
-                echo $_GET['erreur'];
-            }
-            ?> 
-
-
-        </form>
-
-        <a href="inscription.php" class="signin-link">Inscription</a>
-    </div>
-
-
-<?php 
-include 'include/footer.php'; ?>
-
+    </section>
+    <?php include 'include/footer.php'; ?>
+    <script src="functions/adminTab.js"></script>
 </body>
+
 </html>

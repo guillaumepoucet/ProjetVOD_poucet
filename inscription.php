@@ -1,6 +1,5 @@
 <?php
 require_once 'functions/auth.php';
-session();
 header('Content-type: text/html; charset=utf-8');
 require_once 'styleswitcher.php';
 ?>
@@ -50,53 +49,34 @@ require_once 'styleswitcher.php';
 
     <script src="https://cdn.jsdelivr.net/parallax.js/1.4.2/parallax.min.js"></script>
 
-
 </head>
 
 <body>
-    <?php
-    include 'include/nav.php';
-    include 'include/slider.php';
-    include 'include/affiche.php';
-    include 'include/parallax.php';
-    include 'include/tarifs.php';
-    include 'include/footer.php';
-    ?>
+    <?php include 'include/nav.php'; ?>
 
 
-    <script type="text/javascript" src="slick\slick\slick.min.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function () {
+<div class="signin-form">
+  <form action="signin.php" method="POST">
 
-            $('.center').slick({
-                dots: true,
-                autoplay: true,
-                arrows: true,
-                centerMode: true,
-                centerPadding: '60px',
-                slidesToShow: 3,
-                responsive: [{
-                        breakpoint: 768,
-                        settings: {
-                            arrows: false,
-                            centerMode: true,
-                            centerPadding: '40px',
-                            slidesToShow: 3
-                        }
-                    },
-                    {
-                        breakpoint: 480,
-                        settings: {
-                            arrows: false,
-                            centerMode: true,
-                            centerPadding: '40px',
-                            slidesToShow: 1
-                        }
-                    }
-                ]
-            });
-        });
-    </script>
+      <label for="nom">Nom</label>
+      <input type="text" id="lname" name="nom" placeholder="Votre nom">
+      
+      <label for="prenom">Prénom</label>
+      <input type="text" id="fname" name="prenom" placeholder="Votre prénom">
+
+    <label for="mail">login</label>
+    <input type="text" id="login" name="login" placeholder="Login souhaité">
+    
+    <label for="sujet">Mot de passe</label>
+    <input type="text" id="motdepasse" name="motdepasse" placeholder="Mot de passe souhaité">
+        
+    <input class="ok"type="submit" id='submit' value="S'inscrire">
+
+  </form>
+</div>
+
+    <?php include 'include/footer.php'; ?>
+
 </body>
 
 </html>

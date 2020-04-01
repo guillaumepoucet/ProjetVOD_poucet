@@ -1,10 +1,13 @@
 <?php
+require_once 'functions/auth.php';
+online();
 header('Content-type: text/html; charset=utf-8');
 require_once 'styleswitcher.php';
+setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR.ISO8859-1');
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr_FR">
 
 <head>
     <meta charset="UTF-8">
@@ -55,24 +58,49 @@ require_once 'styleswitcher.php';
 
     $req = $bdd->prepare("SELECT * FROM films WHERE id_film =" . $id);
     $req ->execute();
-
+    
     $film = $req->fetch(); {
     ?>
 
     <h2 class="page-film"><?=$film['nom']?></h2>
 
+    </div >
+        <?php 
+            $req = $bdd->prepare("SELECT * FROM est WHERE id_film =" . $id);
+            $req ->execute();
+            
+            while( $id_genre = $req->fetch()) {
+
+                $genres = $bdd->prepare( "SELECT * FROM types WHERE id_genre =" . $id_genre['id_genre']);
+                $genres ->execute();
+    
+                while($genre = $genres->fetch() ) {
+    
+            ?>
+
+            <a href="fiche_genre.php?id=<?=$genre['id_genre']?>" class="lien-genre"><?=$genre['genre']?></a>
+
+            <?php 
+                }
+            }
+                ?>
+        
+    </div>
+
     <!--SYNOPSIS-->
 
     <div class="img-resume">
-        <img class="img-film" src="./img/parasite.jpg" alt="">
+        <img class="img-film" src="<?= $film['poster']?>" alt="<?=$film['nom']?>">
 
         <div class="synop">
             <p class="synop-title">Synopsis</p>
             <p><?=$film['synopsis']?></p>
+
         </div>
     </div>
+        
 
-    <!--INFO FILM-->
+        <!--INFO FILM-->
 
 
     <div class="rond-titre">Résumé</div>
@@ -99,14 +127,17 @@ require_once 'styleswitcher.php';
 
         <div class="ronds-bis">
             <div class="ronds-ronds">
-                <?=date('j F Y', strtotime($film['dateSortie']))?>
+                <?=strftime('%e %B %Y', strtotime($film['dateSortie']))?>
             </div>
             Date de sortie
         </div>
 
 
     </div>
-
+    
+    <?php
+    }
+    ?>
 
     <!--Liste acteurs-->
 
@@ -114,29 +145,29 @@ require_once 'styleswitcher.php';
 
         <div class="acteurs-titre">Acteurs</div>
 
-    <?php
-    // On récupère les id des acteurs ayant le même id-film que le film
-    $acteursListe = $bdd->prepare( "SELECT * FROM joue_dans WHERE id_film =" . $film['id_film']);
-    $acteursListe ->execute();
-
-    while($acteurListe = $acteursListe->fetch()) {
-
-    // On récupère les infos des acteurs ayant le même id_acteur que $acteursListe
-        $acteursFilm = $bdd->prepare( "SELECT id_acteur, nom, prenom FROM acteurs WHERE id_acteur =" . $acteurListe['id_acteur']);
-        $acteursFilm ->execute();
-
-        while($acteur = $acteursFilm->fetch() ) {
-        ?>
-
-            <div class="acteur">
-                <img class="img-acteur" src="./img/acteur1.jfif" alt="">
-                <div><?=$acteur['prenom'] . " " . $acteur['nom']?></div>
-            </div>
-
         <?php
+        // On récupère les id des acteurs ayant le même id-film que le film
+        $acteursListe = $bdd->prepare( "SELECT * FROM joue_dans WHERE id_film =" . $film['id_film']);
+        $acteursListe ->execute();
+
+        while($acteurListe = $acteursListe->fetch()) {
+
+        // On récupère les infos des acteurs ayant le même id_acteur que $acteursListe
+            $acteursFilm = $bdd->prepare( "SELECT id_acteur, nom, prenom, portrait FROM acteurs WHERE id_acteur =" . $acteurListe['id_acteur']);
+            $acteursFilm ->execute();
+
+            while($acteur = $acteursFilm->fetch() ) {
+            ?>
+
+            <a href="./fiche_acteur.php?id=<?=$acteur['id_acteur']?>" class="acteur">
+                <img class="img-acteur" src="<?=$acteur['portrait']?>" alt="">
+                <div><?=$acteur['prenom'] . " " . $acteur['nom']?></div>
+            </a>
+
+            <?php
+            }
         }
-    }
-    ?>
+        ?>
 
     </section>
 
@@ -147,32 +178,67 @@ require_once 'styleswitcher.php';
 
     <div class="real-ba">
 
+        <?php
 
-        <div class="real">
-            <div class="img-real">
-                <img src="./img/real.jfif" alt="">
-                <div>Bong Joon Ho</div>
-            </div>
-            <div class="text-real">
-                Pour son film Parasite, il remporte la Palme d'or au festival de Cannes 2019, puis en 2020, le prix du
-                meilleur film en langue étrangère aux Golden Globes, quatre Oscars (meilleur scénario original, meilleur
-                film international, meilleur réalisateur, et meilleur film) et le César du meilleur film étranger.
-            </div>
-        </div>
+        $realsListe = $bdd->prepare( "SELECT * FROM a_realise WHERE id_film =" . $film['id_film']);
+        $realsListe ->execute();
 
-        <div class="ba-yt">
-            <iframe width="400" height="250" src="https://www.youtube.com/embed/BboKKBYx7-0" frameborder="0"
-                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen></iframe>
-        </div>
+        while($realListe = $realsListe->fetch()) {
+
+            // On récupère les infos des acteurs ayant le même id_acteur que $acteursListe
+            $realFilm = $bdd->prepare( "SELECT * FROM realisateurs WHERE id_real =" . $realListe['id_real']);
+            $realFilm ->execute();
+
+            while($real = $realFilm->fetch() ) {
+            ?>
+
+            <div class="real">
+                <div class="img-real">
+                    <img src="./img/real.jfif" alt="">
+                    <div><?=$real['prenom'] . " " . $real['nom']?></div>
+                </div>
+                <p class="text-real"><?=$real['bio']?></p>
+            </div>
+
+            <div class="ba-yt">
+                <iframe width="400" height="250" src="<?=$film['trailer']?>" frameborder="0"
+                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen></iframe>
+            </div>
 
     </div>
 
-    <?php
+        <?php
+        }
     }
-
-    include 'include/footer.php';    
     ?>
+
+    <div class="gallery">
+
+    <?php
+
+    $photosFilm = $bdd->prepare( "SELECT * FROM photofilm WHERE id_film =" . $film['id_film']);
+    $photosFilm ->execute();
+
+    while($photo = $photosFilm->fetch()) {
+    ?>
+
+        <img src="<?=$photo['path']?>" alt="<?=$photo['nom']?>">
+
+    <?php 
+    }
+    $photosFilm->closeCursor();
+    $realFilm->closeCursor();
+    $realsListe->closeCursor();
+    $acteurListe->closeCursor();
+    $acteursFilm->closeCursor();
+    $genres->closeCursor();
+    $req->closeCursor();
+    ?>
+
+    </div>
+
+    <?php include 'include/footer.php';?>
 
 </body>
 

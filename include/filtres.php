@@ -1,59 +1,38 @@
 <!--NOS FILMS-->
 
 
-
+<?php include './include/connectBDD.php' ?>
 
 <div class="axelcontainer">
 
     <!--FILTRES-->
 
     <div class="axelgauche">
+
         <h5 class="axelH5">Filtres</h5>
+
         <h5 class="axelgenre">Genre</h5>
-        <div class="axelcase">
-            <input type="checkbox" id="coding" name="" value="">
-            <label for="coding">SF</label>
-        </div>
-        <div class="axelcase">
-            <input type="checkbox" id="" name="" value="">
-            <label for="">Aventure</label>
-        </div>
-        <div class="axelcase">
-            <input type="checkbox" id="" name="" value="">
-            <label for="">Action</label>
-        </div>
-        <div class="axelcase">
-            <input type="checkbox" id="" name="" value="">
-            <label for="">Animation</label>
-        </div>
-        <div class="axelcase">
-            <input type="checkbox" id="" name="" value="">
-            <label for="">Comedie</label>
-        </div>
-        <div class="axelcase">
-            <input type="checkbox" id="" name="" value="">
-            <label for="">Doc Fiction</label>
-        </div>
-        <div class="axelcase">
-            <input type="checkbox" id="" name="" value="">
-            <label for="">Drame</label>
-        </div>
-        <div class="axelcase">
-            <input type="checkbox" id="" name="" value="">
-            <label for="">Horreur</label>
-        </div>
-        <div class="axelcase">
-            <input type="checkbox" id="" name="" value="">
-            <label for="">Policier</label>
-        </div>
-        <div class="axelcase">
-            <input type="checkbox" id="" name="" value="">
-            <label for="">Romance</label>
-        </div>
-        <div class="axelcase">
-            <input type="checkbox" id="" name="" value="">
-            <label for="">Thriller</label>
-        </div>
+
+        <!-- On récupère les données de la table types -->
+        <?php
+
+        $req = $bdd->prepare('SELECT * FROM types');
+        $req ->execute();
+
+        // On crée une boucle qui fera apparaître chaque types de film
+        while($genre=$req->fetch()) {
+        ?>
+
+            <div class="axelcase">
+                <input type="checkbox" id="coding" name="" value="">
+                <label for="coding"><?=ucwords($genre['genre'])?></label>
+            </div>
+            
+        <?php
+        }
+        // Fin de la boucle
+        ?>
+
         <h5 class="axelgenre">Durée</h5>
         <div class="axelcase">
             <input type="checkbox" id="" name="" value="">

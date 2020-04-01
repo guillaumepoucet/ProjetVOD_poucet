@@ -1,22 +1,29 @@
 <?php
 require_once 'functions/auth.php';
-session();
+online();
 header('Content-type: text/html; charset=utf-8');
 require_once 'styleswitcher.php';
+setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR.ISO8859-1');
 ?>
 
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr_FR">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Connexion</title>
+    <title><?=$_GET['id']?></title>
+
+    <!--SLICK-->
+
+    <link rel="stylesheet" type="text/css" href="slick\slick\slick.css" />
+    <link rel="stylesheet" type="text/css" href="slick\slick\slick-theme.css" />
+
+    <!--CSS-->
 
     <link rel="stylesheet" href="css/reset.css">
-    
     <link rel="stylesheet" media="screen, projection" type="text/css" id="css" href="<?php echo $url; ?>" />
+
 
     <!--GOOGLE FONTS-->
 
@@ -41,42 +48,52 @@ require_once 'styleswitcher.php';
 
 <body>
 
-<?php 
-include 'include/nav.php'; ?>
+    <?php
+    include 'include/nav.php';
 
+    include 'include/connectBDD.php';
 
-  <!-- zone de connexion -->
+    $id = $_GET['id'];
 
-    <div id="container">
-      
+    $req = $bdd->prepare("SELECT * FROM types WHERE id_genre =" . $id);
+    $req ->execute();
+    
+    $genre = $req->fetch();
 
-        <form class="connect-form" action="connect_verif.php" method="POST">
-            <h2>Connexion</h2>
+    ?>
 
-            <label><b>login</b></label>
-            <input class="login" type="text" placeholder="Nom d'utilisateur" name="login"> <br>
+    <section class="fiche-genre">
 
-            <label><b>Mot de passe</b></label>
-            <input class="motdepasse"  type="password" placeholder="Mot de passe" name="motdepasse"><br>
+        <h2><?=$genre['genre']?></h2>
 
-            <input class="ok"type="submit" id='submit' value='LOGIN'> <br>
-
-
+        <ul>
             <?php
-            if(isset($_GET['erreur'])){
-                echo $_GET['erreur'];
+            $id_genres = $bdd->prepare("SELECT * FROM est WHERE id_genre =" . $genre['id_genre']);
+            $id_genres ->execute();
+            
+            while($genreId = $id_genres->fetch()) {
+
+                $films = $bdd->prepare("SELECT * FROM films WHERE id_film =" . $genreId['id_film']);
+                $films ->execute();
+
+                while($film = $films->fetch()) {
+                ?>
+
+                <li><a href="film_title.php/?id=<?=$film['id_film']?>"><?=$film['nom']?></a></li>
+
+                <?php
+                }
             }
-            ?> 
+            $req->closeCursor();
+            $films->closeCursor();
+            ?>
 
+        </ul>
 
-        </form>
+    </section>
 
-        <a href="inscription.php" class="signin-link">Inscription</a>
-    </div>
-
-
-<?php 
-include 'include/footer.php'; ?>
+    <?php include 'include/footer.php';?>
 
 </body>
+
 </html>
