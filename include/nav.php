@@ -12,21 +12,23 @@
 
                     <li><a href="catalogue.php">Films</a></li>
                     <li><a href="connexion.php">Connexion</a></li>
-                        <div class="liens-couleurs">
+                    <div class="liens-couleurs">
 
-                    <li>
-                        <div class="style_axel"><a href="<?php echo $actuel; ?>?style=../css/index.css"></a>
-                            <div>
-                    </li>
-                    <li>
-                        <div class="style_pol"><a href="<?php echo $actuel; ?>?style=../pol/index2.css"></a></div>
-                    </li>
-                    <li>
-                        <div class="style_steven"><a href="<?php echo $actuel; ?>?style=../steven/index3.css"></a></div>
-                    </li>
-                    <li>
-                        <div class="style_ilayda"><a href="<?php echo $actuel; ?>?style=../axel/index4.css"></a></div>
-                    </li>
+                        <li>
+                            <div class="style_axel"><a href="<?php echo $actuel; ?>?style=../css/index.css"></a>
+                                <div>
+                        </li>
+                        <li>
+                            <div class="style_pol"><a href="<?php echo $actuel; ?>?style=../pol/index2.css"></a></div>
+                        </li>
+                        <li>
+                            <div class="style_steven"><a href="<?php echo $actuel; ?>?style=../steven/index3.css"></a>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="style_ilayda"><a href="<?php echo $actuel; ?>?style=../axel/index4.css"></a>
+                            </div>
+                        </li>
                     </div>
 
 
@@ -47,7 +49,7 @@
 <!--TITRE-->
 
 <div class="title-dada">
-    <h1> <a href="index.php"> ALLO SIMPLON</a></h1>
+    <h1><a href="index.php">ALLO SIMPLON</a></h1>
 </div>
 
 
@@ -79,15 +81,15 @@
                     <div class="style_ilayda"><a href="<?php echo $actuel; ?>?style=index.css"></a></div>
                 </li>
                 <?php if (online()): ?>
-                    <li id="bonjour">Bonjour <?=ucwords($_SESSION['prenom'])?></li>
-                    <?php endif ?>
-                    <li><a href="catalogue.php">Films</a></li>
-                    <?php if (online()): ?>
-                        <li><a href="admin.php">Mon compte</a></li>
-                        <li><a href="functions/logout.php">Me déconnecter</a></li>
-                    <?php else: ?>
-                        <li><a href="connexion.php">Connexion</a></li>
-                        <?php endif ?>
+                <li id="bonjour">Bonjour <?=ucwords($_SESSION['prenom'])?></li>
+                <?php endif ?>
+                <li><a href="catalogue.php">Films</a></li>
+                <?php if (online()): ?>
+                <li><a href="admin.php">Mon compte</a></li>
+                <li><a href="functions/logout.php">Me déconnecter</a></li>
+                <?php else: ?>
+                <li><a href="connexion.php">Connexion</a></li>
+                <?php endif ?>
             </ul>
         </div>
     </div>

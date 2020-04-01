@@ -1,6 +1,6 @@
 <?php
 
-  include ('include/connectBDD.php');
+  include ('../include/connectBDD.php');
 
   $nom = !empty($_POST['nom']) ? $_POST['nom'] : NULL;
   $prenom = !empty($_POST['prenom']) ? $_POST['prenom'] : NULL;

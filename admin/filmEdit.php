@@ -1,6 +1,6 @@
 
         <div class="edit-film">
-            <form action="film-edit.php" method="POST">
+            <form action="../traitement/film-edit.php" method="POST">
 
             <label for="films"><b>Sélectionner un film par son titre :</b></label>
         <select name="films" id="films">

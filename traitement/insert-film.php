@@ -1,6 +1,6 @@
 <?php
 
-    include 'include/connectBDD.php';
+    include '../include/connectBDD.php';
     
     
     

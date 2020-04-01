@@ -55,15 +55,15 @@ require_once 'styleswitcher.php';
             <div class="tablink" onclick="openPage('filmDelete', this, '#FF7200')">Supprimer un film</div>
         </div>
         <div id="filmAdd" class="tabcontent">
-            <?php include 'filmAdd.php' ?>
+            <?php include 'admin/filmAdd.php' ?>
         </div>
 
         <div id="filmEdit" class="tabcontent">
-            <?php include 'filmEdit.php' ?>
+            <?php include 'admin/filmEdit.php' ?>
         </div>
 
         <div id="filmDelete" class="tabcontent">
-            <?php include 'filmDelete.php' ?>
+            <?php include 'admin/filmDelete.php' ?>
         </div>
 
     </section>

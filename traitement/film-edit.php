@@ -2,7 +2,7 @@
 session_start();
 
     var_dump($_POST);
-    include 'include/connectBDD.php';
+    include '../include/connectBDD.php';
 
     $id_film = !empty($_POST['films']) ? $_POST['films'] : NULL;
 

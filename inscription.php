@@ -56,7 +56,7 @@ require_once 'styleswitcher.php';
 
 
 <div class="signin-form">
-  <form action="signin.php" method="POST">
+  <form action="traitement/signin.php" method="POST">
 
       <label for="nom">Nom</label>
       <input type="text" id="lname" name="nom" placeholder="Votre nom">

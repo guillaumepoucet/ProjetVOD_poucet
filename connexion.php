@@ -50,7 +50,7 @@ include 'include/nav.php'; ?>
     <div id="container">
       
 
-        <form class="connect-form" action="connect_verif.php" method="POST">
+        <form class="connect-form" action="traitement/connect_verif.php" method="POST">
             <h2>Connexion</h2>
 
             <label><b>login</b></label>

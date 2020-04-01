@@ -1,7 +1,7 @@
 <h2>Supprimer un film</h2>
 
 <div class="insert-film">
-    <form action="film-delete.php" method="POST">
+    <form action="../traitement/film-delete.php" method="POST">
         <label for="films"><b>Sélectionner un film par son titre :</b></label>
         <select name="films" id="films">
             <option selected disabled>Sélectionner...</option>

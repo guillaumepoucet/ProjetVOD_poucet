@@ -1,6 +1,6 @@
 <?php
 
-    include ('include/connectBDD.php');
+    include ('../include/connectBDD.php');
 
     $login = !empty($_POST['login']) ? $_POST['login'] : NULL;
     $motdepasse = !empty($_POST['motdepasse']) ? $_POST['motdepasse'] : NULL;
