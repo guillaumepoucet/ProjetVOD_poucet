@@ -51,12 +51,12 @@ require_once 'styleswitcher.php';
         </h2>
 
         <div class="tabs">
-            <input class="tablink" onclick="openPage('user_profile', this, '#FF7200')" id="defaultOpen" value="Mon profil">
+            <input class="tablink" onclick="openPage('user_profile', this, '#FF7200')" id="defaultOpen" type="button" value="Mon profil">
             <input class="tablink" onclick="openPage('userInfoEdit', this, '#FF7200')" value="Modifier mes informations" type="button">
             <?php if($_SESSION['id_type'] === "3"): ?>
-                <input class="tablink" onclick="openPage('filmAdd', this, '#FF7200')" value="Ajouter un film">
-                <input class="tablink" onclick="openPage('filmEdit', this, '#FF7200')" value="Modifier un film">
-                <input class="tablink" onclick="openPage('filmDelete', this, '#FF7200')" value="Supprimer un film">
+                <input class="tablink" onclick="openPage('filmAdd', this, '#FF7200')" type="button" value="Ajouter un film">
+                <input class="tablink" onclick="openPage('filmEdit', this, '#FF7200')" type="button" value="Modifier un film">
+                <input class="tablink" onclick="openPage('filmDelete', this, '#FF7200')" type="button" value="Supprimer un film">
             <?php endif ?>
         </div>
 

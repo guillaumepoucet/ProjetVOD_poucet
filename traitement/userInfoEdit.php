@@ -1,8 +1,7 @@
 <?php
 session_start();
-var_dump($_GET);
-exit();
-include '../include/connectBDD.php';
+
+    include '../include/connectBDD.php';
 
     $nom = !empty($_GET['nom']) ? $_GET['nom'] : NULL;
     $prenom = !empty($_GET['prenom']) ? $_GET['prenom'] : NULL;
@@ -10,8 +9,8 @@ include '../include/connectBDD.php';
 
     $sql = $bdd->prepare ("UPDATE user
                             SET
-                            nom = (:nom)
-                            prenom = (:prenom)
+                            nom = (:nom),
+                            prenom = (:prenom),
                             log_in = (:log_in)
                             WHERE id_user =".$_SESSION['id_user']);
 
@@ -20,6 +19,10 @@ $sql->execute(array(
     'prenom' => $prenom,
     'log_in' => $log_in
 ));
+
+$_SESSION['nom'] = $nom;
+$_SESSION['prenom'] = $prenom;
+$_SESSION['log_in'] = $log_in;
 
 $sql-> closeCursor();
 header('location:../admin.php');

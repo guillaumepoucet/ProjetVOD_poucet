@@ -63,8 +63,8 @@ include 'include/nav.php'; ?>
 
 
             <?php
-            if(isset($_GET['erreur'])){
-                echo $_GET['erreur'];
+            if (isset($_SESSION['error'])) {
+                echo "<span style='color:red;'>Check your input</span>";
             }
             ?> 
 
@@ -77,6 +77,9 @@ include 'include/nav.php'; ?>
 
 <?php 
 include 'include/footer.php'; ?>
+<?php
+    unset($_SESSION["error"]);
+?>
 
 </body>
 </html>

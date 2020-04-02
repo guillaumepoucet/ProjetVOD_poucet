@@ -28,7 +28,7 @@
         $_SESSION['id_type'] = $member['id_type'];
         header('location: ../admin.php');
         } else {
-            $_GET['erreur'] = "Mauvais identifiant ou mot de passe !";
+            $_SESSION['error'] == 1;
             header('location:../connexion.php');
         }
     }

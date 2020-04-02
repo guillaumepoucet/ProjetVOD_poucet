@@ -55,44 +55,35 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR.ISO8859-1');
 
     $id = $_GET['id'];
 
-    $req = $bdd->prepare("SELECT * FROM types WHERE id_genre =" . $id);
+    $req = $bdd->prepare("SELECT types.genre, films.nom, films.id_film
+                            FROM types LEFT JOIN est ON est.id_genre = types.id_genre 
+                            LEFT JOIN films ON films.id_film = est.id_film 
+                            WHERE types.id_genre =" . $id);
     $req ->execute();
-    
-    $genre = $req->fetch();
-
+    $donnees = $req->fetch(PDO::FETCH_OBJ);
     ?>
 
     <section class="fiche-genre">
 
-        <h2><?=$genre['genre']?></h2>
+        <h2><?=$donnees->genre?></h2>
 
         <ul>
-            <?php
-            $id_genres = $bdd->prepare("SELECT * FROM est WHERE id_genre =" . $genre['id_genre']);
-            $id_genres ->execute();
-            
-            while($genreId = $id_genres->fetch()) {
 
-                $films = $bdd->prepare("SELECT * FROM films WHERE id_film =" . $genreId['id_film']);
-                $films ->execute();
-
-                while($film = $films->fetch()) {
-                ?>
-
-                <li><a href="film_title.php/?id=<?=$film['id_film']?>"><?=$film['nom']?></a></li>
-
-                <?php
-                }
-            }
-            $req->closeCursor();
-            $films->closeCursor();
-            ?>
+            <?php while($donnees): ?>
+                <li>
+                    <a href="film_title.php/?id=<?=$film['id_film']?>"><?=$film['nom']?></a>
+                </li>
+            <?php endwhile ?>
 
         </ul>
 
     </section>
 
-    <?php include 'include/footer.php';?>
+    <?php 
+    
+    $req->closeCursor();
+    include 'include/footer.php';
+    ?>
 
 </body>
 
