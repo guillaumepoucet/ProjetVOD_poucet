@@ -57,7 +57,7 @@ require_once 'styleswitcher.php';
 
 
 <div class="contact-form">
-  <form action="contact-form.php">
+  <form action="mailto:poucetguillaume@gmail.com" method=POST>
 
     <label for="prenom">Prénom</label>
     <input type="text" id="fname" name="prenom" placeholder="Votre prénom">

@@ -708,7 +708,7 @@ FOOTER {
     .menu-dada ul {
         display: flex;
         list-style: none;
-
+        justify-content: flex-end;
     }
 
     .menu-nav {
@@ -1577,6 +1577,7 @@ label {
     cursor: pointer;
     font-size: 17px;
     padding: 10px 25px;
+    width: fit-content;
 }
 
 .tablink:hover {

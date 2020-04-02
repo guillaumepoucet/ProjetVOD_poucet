@@ -7,6 +7,8 @@
   $login = !empty($_POST['login']) ? $_POST['login'] : NULL;
   $motdepasse = !empty($_POST['motdepasse']) ? $_POST['motdepasse'] : NULL;
 
+  $motdepasse = password_hash($motdepasse, PASSWORD_DEFAULT);
+
   $sql = $bdd->prepare ("INSERT INTO user (nom, prenom, log_in, motdepasse )
                         VALUES ( :nom, :prenom, :log_in, :motdepasse)");
 
@@ -18,6 +20,6 @@
   ));
 
   $sql-> closeCursor();
-  header('location:index.php');
+  header('location:../index.php');
 
 ?>
