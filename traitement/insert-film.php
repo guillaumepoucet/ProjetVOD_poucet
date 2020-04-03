@@ -34,8 +34,8 @@
     // lien youtube
     $trailer = str_replace("watch", "embed", $trailer);
   
-    $sql = $bdd->prepare ("INSERT INTO films (nom, dateSortie, trailer, duree, synopsis, poster )
-                          VALUES ( :nom, :dateSortie, :trailer, :duree, :synopsis, :poster)");
+    $sql = $bdd->prepare ("INSERT INTO films (nom, dateSortie, trailer, duree, synopsis, poster)
+                          VALUES (:nom, :dateSortie, :trailer, :duree, :synopsis, :poster)");
   
 
     $sql->execute(array(

@@ -1600,3 +1600,12 @@ label {
 .insert-film form {
     margin: 30px;
 }
+
+#admin {
+    /* display: flex; */
+}
+
+.admin-tabs {
+    display: flex;
+    flex-direction: column;
+}
