@@ -56,7 +56,7 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR.ISO8859-1');
 
     $id = $_GET['id'];
 
-    $req = $bdd->prepare('  SELECT nom
+    $req = $bdd->prepare('  SELECT *
                             FROM films
                             WHERE id_film =' . $id);
     $req ->execute();
@@ -64,28 +64,22 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR.ISO8859-1');
     $film = $req->fetch();
     ?>
 
-    <h2 class="page-film"><?=$film['nom']?></h2>
+<h2 class="page-film"><?=$film['nom']?></h2>
 
-    </div >
-        <?php
+</div >
+<?php
             $req->closeCursor();
-            $req = $bdd->prepare('  SELECT films.*, types.id_genre
+            $req = $bdd->prepare('  SELECT films.*, types.*
                                     FROM films
                                     LEFT JOIN est ON est.id_film = films.id_film
                                     LEFT JOIN types ON types.id_genre = est.id_genre
                                     WHERE films.id_film =' . $id);
             $req ->execute();
-            
-            while($donnees = $req->fetch()) {
-    
             ?>
-
-            <a href="fiche_genre.php?id=<?=$donnees['id_genre']?>" class="lien-genre"><?=$donnees['genre']?></a>
-
-            <?php 
-                }
             
-                ?>
+            <?php while($donnees = $req->fetch()): ?>
+                <a href="fiche_genre.php?id=<?=$donnees['id_genre']?>" class="lien-genre"><?=$donnees['genre']?></a>
+            <?php endwhile ?>
         
     </div>
 
@@ -148,31 +142,22 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR.ISO8859-1');
         <div class="acteurs-titre">Acteurs</div>
 
         <?php
-        // On récupère les id des acteurs ayant le même id-film que le film
-        $acteursListe = $bdd->prepare( "SELECT * FROM joue_dans WHERE id_film =" . $film['id_film']);
+        $acteursListe = $bdd->prepare(' SELECT acteurs.id_acteur, acteurs.nom, acteurs.prenom, acteurs.portrait
+                                        FROM acteurs
+                                        LEFT JOIN joue_dans AS j ON j.id_acteur = acteurs.id_acteur
+                                        LEFT JOIN films ON films.id_film = j.id_film
+                                        WHERE films.id_film =' .$id);
         $acteursListe ->execute();
+        ?>
 
-        while($acteurListe = $acteursListe->fetch()) {
-
-        // On récupère les infos des acteurs ayant le même id_acteur que $acteursListe
-            $acteursFilm = $bdd->prepare( "SELECT id_acteur, nom, prenom, portrait FROM acteurs WHERE id_acteur =" . $acteurListe['id_acteur']);
-            $acteursFilm ->execute();
-
-            while($acteur = $acteursFilm->fetch() ) {
-            ?>
-
+        <?php while($acteur = $acteursListe->fetch()): ?>
             <a href="./fiche_acteur.php?id=<?=$acteur['id_acteur']?>" class="acteur">
                 <img class="img-acteur" src="<?=$acteur['portrait']?>" alt="">
                 <div><?=$acteur['prenom'] . " " . $acteur['nom']?></div>
             </a>
-
-            <?php
-            }
-        }
-        ?>
+        <?php endwhile ?>
 
     </section>
-
 
     <!--REAL BA-->
 
@@ -181,19 +166,15 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR.ISO8859-1');
     <div class="real-ba">
 
         <?php
-
-        $realsListe = $bdd->prepare( "SELECT * FROM a_realise WHERE id_film =" . $film['id_film']);
+        $realsListe = $bdd->prepare('   SELECT r.*
+                                        FROM realisateurs r
+                                        LEFT JOIN a_realise AS ar ON ar.id_real = r.id_real
+                                        LEFT JOIN films ON films.id_film = ar.id_film
+                                        WHERE films.id_film ='. $id);
         $realsListe ->execute();
+        ?>
 
-        while($realListe = $realsListe->fetch()) {
-
-            // On récupère les infos des acteurs ayant le même id_acteur que $acteursListe
-            $realFilm = $bdd->prepare( "SELECT * FROM realisateurs WHERE id_real =" . $realListe['id_real']);
-            $realFilm ->execute();
-
-            while($real = $realFilm->fetch() ) {
-            ?>
-
+        <?php while($real = $realsListe->fetch()): ?>
             <div class="real">
                 <div class="img-real">
                     <img src="./img/real.jfif" alt="">
@@ -201,19 +182,19 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR.ISO8859-1');
                 </div>
                 <p class="text-real"><?=$real['bio']?></p>
             </div>
+        <?php endwhile ?>
 
-            <div class="ba-yt">
-                <iframe width="400" height="250" src="<?=$film['trailer']?>" frameborder="0"
-                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen></iframe>
-            </div>
+        <!-- movie trailer -->
+        
+        <div class="ba-yt">
+            <iframe width="400" height="250" src="<?=$film['trailer']?>" frameborder="0"
+                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+        </div>
 
     </div>
 
-        <?php
-        }
-    }
-    ?>
+    <!-- film photo gallery -->
 
     <div class="gallery">
 
@@ -229,13 +210,6 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR.ISO8859-1');
 
     <?php 
     }
-    $photosFilm->closeCursor();
-    $realFilm->closeCursor();
-    $realsListe->closeCursor();
-    $acteurListe->closeCursor();
-    $acteursFilm->closeCursor();
-    $genres->closeCursor();
-    $req->closeCursor();
     ?>
 
     </div>
