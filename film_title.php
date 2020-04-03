@@ -56,33 +56,35 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR.ISO8859-1');
 
     $id = $_GET['id'];
 
-    $req = $bdd->prepare("SELECT * FROM films WHERE id_film =" . $id);
+    $req = $bdd->prepare('  SELECT nom
+                            FROM films
+                            WHERE id_film =' . $id);
     $req ->execute();
     
-    $film = $req->fetch(); {
+    $film = $req->fetch();
     ?>
 
     <h2 class="page-film"><?=$film['nom']?></h2>
 
     </div >
-        <?php 
-            $req = $bdd->prepare("SELECT * FROM est WHERE id_film =" . $id);
+        <?php
+            $req->closeCursor();
+            $req = $bdd->prepare('  SELECT films.*, types.id_genre
+                                    FROM films
+                                    LEFT JOIN est ON est.id_film = films.id_film
+                                    LEFT JOIN types ON types.id_genre = est.id_genre
+                                    WHERE films.id_film =' . $id);
             $req ->execute();
             
-            while( $id_genre = $req->fetch()) {
-
-                $genres = $bdd->prepare( "SELECT * FROM types WHERE id_genre =" . $id_genre['id_genre']);
-                $genres ->execute();
-    
-                while($genre = $genres->fetch() ) {
+            while($donnees = $req->fetch()) {
     
             ?>
 
-            <a href="fiche_genre.php?id=<?=$genre['id_genre']?>" class="lien-genre"><?=$genre['genre']?></a>
+            <a href="fiche_genre.php?id=<?=$donnees['id_genre']?>" class="lien-genre"><?=$donnees['genre']?></a>
 
             <?php 
                 }
-            }
+            
                 ?>
         
     </div>
@@ -136,7 +138,7 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR.ISO8859-1');
     </div>
     
     <?php
-    }
+    
     ?>
 
     <!--Liste acteurs-->

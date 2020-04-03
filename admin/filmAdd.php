@@ -1,6 +1,6 @@
 
         <div class="insert-film">
-            <form action="../traitement/insert-film.php" method="POST" enctype="multipart/form-data">
+            <form action="traitement/insert-film.php" method="POST" enctype="multipart/form-data">
 
                 <label for="nom">Titre du film</label>
                 <input type="text" id="nom" name="nom" placeholder="Titre du film"><br>

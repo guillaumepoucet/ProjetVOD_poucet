@@ -50,5 +50,5 @@
     move_uploaded_file($_FILES["poster"]["tmp_name"], $targetPosterPath);
   
     $sql-> closeCursor();
-    header('location:admin.php');
+    header('location:../admin.php');
 ?>
