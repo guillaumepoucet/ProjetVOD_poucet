@@ -69,11 +69,11 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR.ISO8859-1');
 
             <?php 
                 $req->closeCursor();
-                $req = $bdd->prepare(' SELECT types.genre, films.nom, films.id_film
-                FROM types 
-                LEFT JOIN est ON est.id_genre = types.id_genre 
-                LEFT JOIN films ON films.id_film = est.id_film 
-                WHERE types.id_genre ='.$id);
+                $req = $bdd->prepare('  SELECT types.genre, films.nom, films.id_film
+                                        FROM types 
+                                        LEFT JOIN est ON est.id_genre = types.id_genre 
+                                        LEFT JOIN films ON films.id_film = est.id_film 
+                                        WHERE types.id_genre ='.$id);
                 $req->execute();
                 
                 while($donnees = $req->fetch()) { 
