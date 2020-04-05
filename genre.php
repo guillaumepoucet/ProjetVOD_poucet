@@ -48,10 +48,14 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR.ISO8859-1');
 
 <body>
 
-    <?php
-    include 'include/nav.php';
+    <?php include 'include/nav.php'; ?>
+
+    <h2 class="axeltitreh2">Nos films</h2>
+
+    <?php include 'include/filtres.php';
 
     include 'include/connectBDD.php';
+    include './functions/filmDuration.php';
 
     $id = $_GET['id'];
 
@@ -65,11 +69,11 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR.ISO8859-1');
 
         <h2><?=$donnees->genre?></h2>
 
-        <ul>
+        <div id="catalogue">
 
             <?php 
                 $req->closeCursor();
-                $req = $bdd->prepare('  SELECT types.genre, films.nom, films.id_film
+                $req = $bdd->prepare('  SELECT types.genre, films.nom, films.id_film, films.duree, films.poster
                                         FROM types 
                                         LEFT JOIN est ON est.id_genre = types.id_genre 
                                         LEFT JOIN films ON films.id_film = est.id_film 
@@ -78,15 +82,24 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR.ISO8859-1');
                 
                 while($donnees = $req->fetch()) { 
                     ?>
-                    <li>
-                        <a href="film_title.php/?id=<?=$donnees['id_film']?>"><?=$donnees['nom']?></a>
-                    </li>
-                <?php 
+            <a href="./film_title.php?id=<?=$donnees['id_film'] ?>">
+                <div class="cardaxel">
+                    <img class="poster-img" src="<?=$donnees['poster']?>" alt="<?=$donnees['nom']?>">
+                    <div class="titrefilm"><?=$donnees['nom']?></div>
+                    <div class="infoaxel">
+                        <div class="textaxel">
+                            <p><?=filmDuration($donnees['duree'],'%&2h %02dm')?></p>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            <?php 
                 } ?>
 
-        </ul>
+        </div>
 
     </section>
+    </div>
 
     <?php 
     

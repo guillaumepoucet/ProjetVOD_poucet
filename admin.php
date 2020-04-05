@@ -19,22 +19,25 @@ require_once 'styleswitcher.php';
     <link rel="stylesheet" media="screen, projection" type="text/css" id="css" href="<?php echo $url; ?>" />
 
     <!--GOOGLE FONTS-->
-
+    
     <link
-        href="https://fonts.googleapis.com/css?family=Baloo+Tammudu+2:400,500,600,700,800|Ubuntu:300,300i,400,400i,500,500i,700,700i&display=swap"
-        rel="stylesheet">
+    href="https://fonts.googleapis.com/css?family=Baloo+Tammudu+2:400,500,600,700,800|Ubuntu:300,300i,400,400i,500,500i,700,700i&display=swap"
+    rel="stylesheet">
     <link
-        href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i|Rubik:300,300i,400,400i,500,500i,700,700i,900,900i&display=swap"
-        rel="stylesheet">
+    href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i|Rubik:300,300i,400,400i,500,500i,700,700i,900,900i&display=swap"
+    rel="stylesheet">
     <link
-        href="https://fonts.googleapis.com/css?family=Asap:400,400i,500,500i,600,600i,700,700i|Bellota+Text:300,300i,400,400i,700,700i&display=swap"
-        rel="stylesheet">
+    href="https://fonts.googleapis.com/css?family=Asap:400,400i,500,500i,600,600i,700,700i|Bellota+Text:300,300i,400,400i,700,700i&display=swap"
+    rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Orbitron:700,800,900|Quicksand:300,400,500,600,700&display=swap"
-        rel="stylesheet">
-
+    rel="stylesheet">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+    <script src="functions/select.js"></script>
 
 
 </head>
@@ -54,8 +57,8 @@ require_once 'styleswitcher.php';
             <input class="tablink" onclick="openPage('user_profile', this, '#FF7200')" type="button" value="Mon profil">
             <input class="tablink" onclick="openPage('userInfoEdit', this, '#FF7200')" value="Modifier mes informations" type="button">
             <?php if($_SESSION['id_type'] === "3"): ?>
-                <input class="tablink" onclick="openPage('film', this, '#FF7200')" type="button" value="Gérer les films" id="defaultOpen" >
-                <input class="tablink" onclick="openPage('', this, '#FF7200')" type="button" value="Gérer les acteurs">
+                <input class="tablink" onclick="openPage('db-manage', this, '#FF7200')" type="button" value="Gérer la base de données" id="defaultOpen" >
+                <input class="tablink" onclick="openPage('', this, '#FF7200')" type="button" value="Gérer les membres">
             <?php endif ?>
         </div>
 
@@ -80,16 +83,12 @@ require_once 'styleswitcher.php';
             </div>
 
 
-        <div id="film" class="tabcontent">
-            <?php include 'admin/film.php' ?>
+        <div id="db-manage" class="tabcontent">
+            <?php include 'admin/db-manage.php' ?>
         </div>
 
-        <div id="filmEdit" class="tabcontent">
-            <?php include 'admin/filmEdit.php' ?>
-        </div>
-
-        <div id="filmDelete" class="tabcontent">
-            <?php include 'admin/filmDelete.php' ?>
+        <div id="db-manage" class="tabcontent">
+            <?php include 'admin/db-member.php' ?>
         </div>
 
     </section>

@@ -61,24 +61,32 @@ require_once 'styleswitcher.php';
 
         if(isset($_GET['search']) AND !empty($_GET['search'])) {
             $search = htmlspecialchars($_GET['search']);
-            $req = $bdd->prepare('  SELECT f.nom
+            $req = $bdd->prepare('  SELECT f.id_film, f.nom
                                     FROM films f
-                                    WHERE f.nom
-                                    LIKE  "%'.$search.'%"');
+                                    WHERE f.nom LIKE "%'.$search.'%"');
             $req->execute();
         
     ?>
-<?php if($req->rowCount()>0): ?>
 
-    <?php while ($s = $req->fetch()): ?>
-        <h2><?= $s['nom'] ?></h2>
+<section id="search-result">
+
+    <ul class="result-list">
+        <?php if($req->rowCount()>0): ?>
+            <h3>Résultats de votre recherche</h3>
+        <?php while ($s = $req->fetch()): ?>
+            <li><a href="film_title.php?id=<?=$s['id_film']?>"><?=$s['nom']?></a></li>
         <?php endwhile ?>
-
-    <?php else: ?>
-        <h2>Aucun résultat</h2>
+        <?php else: ?>
+            <h2>Aucun résultat</h2>
         <?php endif ?>
+    </ul>
+
+    <a href="index.php" class="back-to-index">Retour à l'accueil</a>
+
+</section>
     <?php 
-    }
+    // end of if
+        }
     include 'include/footer.php'; ?>
 
 </body>

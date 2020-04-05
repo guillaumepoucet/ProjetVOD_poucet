@@ -81,7 +81,7 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR.ISO8859-1');
             ?>
 
     <?php while($donnees = $req->fetch()): ?>
-    <a href="fiche_genre.php?id=<?=$donnees['id_genre']?>" class="lien-genre"><?=$donnees['genre']?></a>
+    <a href="genre.php?id=<?=$donnees['id_genre']?>" class="lien-genre"><?=$donnees['genre']?></a>
     <?php endwhile ?>
 
     </div>

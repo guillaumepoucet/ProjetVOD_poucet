@@ -14,9 +14,16 @@ session_start();
     $poster = !empty($_POST['poster']) ? $_POST['poster'] : NULL;
     $synopsis = !empty($_POST['synopsis']) ? $_POST['synopsis'] : NULL;
 
-    $sql = $bdd->prepare ('UPDATE films (nom, dateSortie, trailer, duree, synopsis, poster)
-                          SET ( :nom, :dateSortie, :trailer, :duree, :synopsis, :poster)
+    $sql = $bdd->prepare ('UPDATE films
+                          SET 
+                            nom = (:nom),
+                            dateSortie = (:dateSortie),
+                            trailer = (:trailer),
+                            duree = (:duree),
+                            synopsis = (:synopsis),
+                            poster = (:poster)
                           WHERE id_film ='.$id_film);
+
 
     $sql->execute(array(
         'nom' => $nom,
