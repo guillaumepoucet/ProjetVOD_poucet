@@ -1019,6 +1019,10 @@ FOOTER {
     font-size: 15px;
 }
 
+#catalogue a {
+    text-decoration: none;
+}
+
 .infoaxel {
     position: absolute;
     top: 0;
@@ -1545,7 +1549,12 @@ label {
 /* CSS fiche acteurs */
 
 .fiche-acteur {
+    margin-top: 25px;
     color: white;
+    display: grid;
+    grid-template-columns: 18vw 40vw;
+    grid-column-gap: 20px;
+    justify-content: center;
 }
 
 .fiche-acteur h2 {
@@ -1554,6 +1563,49 @@ label {
 
 .fiche-acteur {
     text-align: center;
+}
+
+.detail {
+    grid-column-start: 1;
+}
+
+.detail p,
+.bio {
+    max-width: 40vw;
+    line-height: 1.25em;
+    letter-spacing: 0.025em;
+}
+
+.detail p {
+    margin: 1em;
+}
+
+.bio {
+    grid-column-start: 2;
+    text-align: left;
+}
+
+.bio h3 {
+    text-decoration: none;
+    color: #FF7200;
+    font-family: "Baloo Tammudu 2", Arial, Helvetica, sans-serif;
+    padding-top: 15px;
+    font-size: 20px;
+    font-weight: 700;
+    margin: 1em 0em;
+}
+
+.bio a {
+    display: block;
+    width: fit-content;
+    text-decoration: none;
+    color: whitesmoke;
+    transition: color 0.2s;
+    margin: 0.5em 0em;
+}
+
+.bio a:hover {
+    color: #FF7200;
 }
 
 /* CSS fiche genres */

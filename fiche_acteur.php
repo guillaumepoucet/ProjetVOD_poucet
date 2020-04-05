@@ -61,18 +61,39 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR.ISO8859-1');
     $acteur = $req->fetch();
     ?>
     <section class="fiche-acteur">
-        <img src="<?=$acteur['portrait']?>" alt="">
-        <h2><?=ucwords($acteur['prenom'] . " " . $acteur['nom'])?></h2>
 
-        <div class="orbituary">
+        <div class="detail">
+            <img src="<?=$acteur['portrait']?>" alt="">
             <p>Née le <?=strftime('%e %B %Y', strtotime($acteur['datebirth']))?></p>
             <?php if (isset($acteur['datedeath'])):?>
             <p>Décédé le <?=strftime('%e %B %Y', strtotime($acteur['datedeath']))?></p>
             <?php endif ?>
         </div>
+        <div class="bio">
+            <h2><?=ucwords($acteur['prenom'] . " " . $acteur['nom'])?></h2>
+            <p><?=$acteur['bio']?></p>
 
-        <p><?=$acteur['bio']?></p>
+        <h3>Liste de ses films</h3>
 
+        <?php 
+        $req->closeCursor();
+        $req = $bdd->prepare('  SELECT f.id_film, f.nom
+                                FROM films f
+                                LEFT JOIN joue_dans AS j ON j.id_film = f.id_film
+                                LEFT JOIN acteurs ON acteurs.id_acteur = j.id_acteur
+                                WHERE acteurs.id_acteur =' . $id);
+        $req ->execute();
+        
+        while($films = $req->fetch()) {
+        ?>
+
+            <a href="film_title?id=<?=$films['id_film']?>"><?=$films['nom']?></a>
+
+        <?php
+        }
+        ?>
+
+</div>
     </section>
 
     <?php include 'include/footer.php';?>
