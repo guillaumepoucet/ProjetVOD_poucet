@@ -21,7 +21,6 @@ session_start();
                             trailer = (:trailer),
                             duree = (:duree),
                             synopsis = (:synopsis),
-                            poster = (:poster)
                           WHERE id_film ='.$id_film);
 
 
@@ -31,7 +30,6 @@ session_start();
         'trailer' => $trailer,
         'duree' => $duree,
         'synopsis' => $synopsis,
-        'poster' => $poster
     ));
 
     $sql-> closeCursor();

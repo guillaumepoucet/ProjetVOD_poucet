@@ -1531,6 +1531,7 @@ label {
         background-color: #FF7200;
         color: black;
         font-weight: 700;
+        margin: 2em;
     }
 
     .ok:hover {
@@ -1768,6 +1769,11 @@ box-shadow:  inset 2px 2px 3px 0px #ff720061, inset -2px -2px 3px 0px #ff720061;
 .db-film-edit {
     width: fit-content;
     margin: auto;
+}
+
+.error {
+    color: red;
+    font-weight: bold;
 }
 
 /* serahc resutlt page */

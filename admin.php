@@ -2,6 +2,7 @@
 require_once 'functions/auth.php';
 user_online();
 header('Content-type: text/html; charset=utf-8');
+setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR.ISO8859-1');
 require_once 'styleswitcher.php';
 ?>
 

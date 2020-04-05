@@ -8,8 +8,13 @@
             <label for="nom">Titre du film</label>
             <input type="text" id="nom" name="nom" placeholder="Titre du film"><br>
 
+            <?php if(isset($_GET['error'])): ?>
+                <?= "<p class=\"error\">La sortie ne peut être inférieure à 3 mois</p>"?>
+            <?php endif ?>
+
             <label for="dateSortie">Date de sortie</label>
             <input type="date" id="dateSortie" name="dateSortie" placeholder="Date de sortie"><br>
+
 
             <label for="trailer">Trailer</label>
             <input type="text" id="trailer" name="trailer" placeholder="Lien du trailer"><br>

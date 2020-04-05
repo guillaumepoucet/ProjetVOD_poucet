@@ -15,8 +15,7 @@
     //var_dump($member)
 
     if (!$member) {
-        
-        header('location:../connexion.php');
+        header('location:../connexion.php?error=login');
     } else {
         if ($mdpval) {
         session_start();
@@ -28,8 +27,7 @@
         $_SESSION['id_type'] = $member['id_type'];
         header('location: ../admin.php');
         } else {
-            $_SESSION['error'] == 1;
-            header('location:../connexion.php');
+            header('location:../connexion.php?error=login');
         }
     }
     

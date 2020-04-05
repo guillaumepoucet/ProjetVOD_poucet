@@ -66,6 +66,7 @@ require_once '../styleswitcher.php';
                     <?=strftime('%d/%m/%Y', strtotime($film['dateSortie']))?>
                     <?php endif ?>
             </label>
+
         <input type="date" id="dateSortie" name="dateSortie" placeholder=""><br>
             <?=$film['dateSortie']?>
             <label for="trailer">Trailer</label>

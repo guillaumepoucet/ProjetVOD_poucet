@@ -10,6 +10,7 @@
     <ul><a href="#actortofilm">Ajouter des acteurs à un film</a></ul>
     <ul><a href="#actorDelete">Supprimer des acteurs</a></ul>
     <ul><a href="#actorEdit">&Eacute;diter un acteur</a></ul>
+    
 </div>
 
 <?php include 'include/db-manage-film.php' ?>    
