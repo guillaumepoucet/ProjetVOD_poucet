@@ -3,19 +3,19 @@
 
     <div class="insert-actor">
 
-        <form action="traitement/insert-actor.php" method="POST" enctype="multipart/form-data">
+        <form action="traitement/insert-acteur.php" method="POST" enctype="multipart/form-data">
 
             <label for="nom">Nom</label>
             <input type="text" id="nom" name="nom" placeholder="Nom" required><br>
 
-            <label for="trailer">Prénom</label>
-            <input type="text" id="prenom" name="trailer" placeholder="Prénom" required><br>
+            <label for="prenom">Prénom</label>
+            <input type="text" id="prenom" name="prenom" placeholder="Prénom" required><br>
 
-            <label for="dateSortie">Date de naissance</label>
-            <input type="date" id="dateBirth" name="dateSortie"><br>
+            <label for="dateBirth">Date de naissance</label>
+            <input type="date" id="dateBirth" name="dateBirth"><br>
 
-            <label for="dateSortie">Date de décès</label>
-            <input type="date" id="dateDeath" name="dateSortie"><br>
+            <label for="dateDeath">Date de décès</label>
+            <input type="date" id="dateDeath" name="dateDeath"><br>
 
             <label for="portrait">Portrait</label>
             <input type="file" id="portrait" name="portrait"><br>
@@ -23,10 +23,13 @@
             <label for="synopsis">Biograghie</label>
             <textarea id="bio" name="bio" placeholder="Biographie" style="height:200px"></textarea><br>
 
-
             <input type="submit" value="Enregistrer">
 
         </form>
+
+
+            <!-- <script>alert("L'acteur a bien été enregistré.\<br\>N'oubliez pas de l'ajouter à un film le cas échéant")</script> -->
+
     </div>
 </div>
 
@@ -36,8 +39,8 @@
 
         <div class="delete-actor">
             <form action="../traitement/film-delete.php" method="POST">
-                <label for="films"><b>Sélectionner un acteur à supprimer :</b></label>
-                <select class="" style="" name="acteurs" id="acteurs">
+                <label for="films"><b>Sélectionnez un acteur à supprimer :</b></label>
+                <select name="acteurs" id="acteurs">
                     <option selected disabled>Sélectionner...</option>
 
                     <?php 
@@ -54,6 +57,13 @@
         ?>
                 </select>
 
+                <label for="search">Ou effectuez une recherche</label>
+
+                <div class="db-film-search">
+                    <input type="text" placeholder="" name="search">
+                    <button class="search-button" type="submit"><i class="fa fa-search"></i></button>
+                </div>
+
                 <input type="submit" value="Supprimer" class="btn-delete">
 
             </form>
@@ -68,7 +78,7 @@
 
                 <label for="films"><b>Sélectionner un acteur à modifier :</b></label>
 
-                <select class="" style="" name="acteurs" id="acteurs">
+                <select name="acteurs" id="acteurs">
                     <option selected disabled>Sélectionner...</option>
 
                     <?php 
@@ -85,6 +95,13 @@
         ?>
                 </select>
                 <br>
+
+                <label for="search">Ou effectuez une recherche</label>
+
+                <div class="db-film-search">
+                    <input type="text" placeholder="" name="search">
+                    <button class="search-button" type="submit"><i class="fa fa-search"></i></button>
+                </div>
 
                 <input type="submit" value="Continuer">
 

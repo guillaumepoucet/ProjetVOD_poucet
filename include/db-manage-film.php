@@ -9,7 +9,7 @@
             <input type="text" id="nom" name="nom" placeholder="Titre du film"><br>
 
             <?php if(isset($_GET['error'])): ?>
-                <?= "<p class=\"error\">La sortie ne peut être inférieure à 3 mois</p>"?>
+            <?= "<p class=\"error\">La sortie ne peut être inférieure à 3 mois</p>"?>
             <?php endif ?>
 
             <label for="dateSortie">Date de sortie</label>
@@ -62,12 +62,12 @@
         <div class="delete-film">
             <form action="../traitement/film-delete.php" method="POST">
                 <label for="films"><b>Sélectionner un film par son titre :</b></label>
-                <select class="" style="" name="films" id="films">
+                <select name="films" id="films">
                     <option selected disabled>Sélectionner...</option>
 
                     <?php 
 
-        $req = $bdd->prepare('SELECT * FROM films');
+        $req = $bdd->prepare('SELECT id_film, nom FROM films');
         $req ->execute();
 
         while($films = $req->fetch()) {
@@ -77,6 +77,13 @@
         }
         ?>
                 </select>
+
+                <label for="search">Ou effectuez une recherche</label>
+
+                <div class="db-film-search">
+                    <input type="text" placeholder="" name="search">
+                    <button class="search-button" type="submit"><i class="fa fa-search"></i></button>
+                </div>
 
                 <input type="submit" value="Supprimer" class="btn-delete">
 
@@ -107,7 +114,14 @@
             ?>
                 </select><br>
 
-                <input type="submit" name ="submit" value="Continuer" formtarget="popup">
+                <label for="search">Ou effectuez une recherche</label>
+
+                <div class="db-film-search">
+                    <input type="text" placeholder="" name="search">
+                    <button class="search-button" type="submit"><i class="fa fa-search"></i></button>
+                </div>
+
+                <input type="submit" name="submit" value="Continuer" formtarget="popup">
 
             </form>
         </div>

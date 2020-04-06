@@ -29,7 +29,7 @@
     // Allowing certain file formats
     if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
     && $imageFileType != "gif" ) {
-        echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+        echo "Désolé, seulement les fichiers JPG, JPEG, PNG & GIF sont acceptés.";
         $uploadOk = 0;
     };
 
