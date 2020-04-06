@@ -1,4 +1,3 @@
-<!--CATALOGUE FILMS-->
 <div id="catalogue">
 
 <?php

@@ -1,6 +1,8 @@
 body {
     background-color: #121111;
     height: 100%;
+    font-family: 'Ubuntu', Arial, Helvetica, sans-serif;
+    scroll-behavior: smooth;
 }
 
 .nav-dada {
@@ -722,7 +724,8 @@ FOOTER {
 
     .menu-nav ul li a,
     #bonjour,
-    .admin h2 {
+    .admin h2,
+    #search-result ul li a {
         display: inline-block;
         text-decoration: none;
         color: #FF7200;
@@ -962,9 +965,18 @@ FOOTER {
 }
 
 .axelcase {
-    margin: 5px;
+    line-height: 1.5em;
 }
 
+.axelcase a {
+    display: block;
+    text-decoration: none;
+    color: black;
+}
+
+.axelcase a:hover {
+    text-decoration: underline;
+}
 
 /*LIGHTBOX*/
 
@@ -1005,6 +1017,10 @@ FOOTER {
     font-family: 'Ubuntu', Arial, Helvetica, sans-serif;
     margin-top: 5px;
     font-size: 15px;
+}
+
+#catalogue a {
+    text-decoration: none;
 }
 
 .infoaxel {
@@ -1519,6 +1535,7 @@ label {
         background-color: #FF7200;
         color: black;
         font-weight: 700;
+        margin: 2em;
     }
 
     .ok:hover {
@@ -1532,7 +1549,12 @@ label {
 /* CSS fiche acteurs */
 
 .fiche-acteur {
+    margin-top: 25px;
     color: white;
+    display: grid;
+    grid-template-columns: 18vw 40vw;
+    grid-column-gap: 20px;
+    justify-content: center;
 }
 
 .fiche-acteur h2 {
@@ -1543,18 +1565,59 @@ label {
     text-align: center;
 }
 
+.detail {
+    grid-column-start: 1;
+}
+
+.detail p,
+.bio {
+    max-width: 40vw;
+    line-height: 1.25em;
+    letter-spacing: 0.025em;
+}
+
+.detail p {
+    margin: 1em;
+}
+
+.bio {
+    grid-column-start: 2;
+    text-align: left;
+}
+
+.bio h3 {
+    text-decoration: none;
+    color: #FF7200;
+    font-family: "Baloo Tammudu 2", Arial, Helvetica, sans-serif;
+    padding-top: 15px;
+    font-size: 20px;
+    font-weight: 700;
+    margin: 1em 0em;
+}
+
+.bio a {
+    display: block;
+    width: fit-content;
+    text-decoration: none;
+    color: whitesmoke;
+    transition: color 0.2s;
+    margin: 0.5em 0em;
+}
+
+.bio a:hover {
+    color: #FF7200;
+}
+
 /* CSS fiche genres */
 
 .fiche-genre {
     color: white;
+    text-align: center;
+    width: 100%;
 }
 
 .fiche-genre h2 {
     text-transform: capitalize;
-}
-
-.fiche-genre {
-    text-align: center;
 }
 
 /* CSS admin.php */
@@ -1569,6 +1632,7 @@ label {
 .tabs {
     display: flex;
     background-color: #FF7200;
+    justify-content: center;
 }
 
 .tablink {
@@ -1578,6 +1642,8 @@ label {
     font-size: 17px;
     padding: 10px 25px;
     width: fit-content;
+    border: none;
+    border-radius: 0px;
 }
 
 .tablink:hover {
@@ -1588,7 +1654,7 @@ label {
 .tabcontent {
     color: white;
     display: none;
-    padding: 100px 20px;
+    padding: 60px 20px;
     height: 100%;
 }
 
@@ -1597,6 +1663,217 @@ label {
     color: white;
 }
 
-.insert-film form {
-    margin: 30px;
+#admin-film {
+    display: grid;
+    grid-template-columns: 13vw 1fr 2fr 2fr;
+    grid-row-gap: 3em;
+}
+
+#admin-film form {
+    width: fit-content;
+}
+
+#filmAdd,
+#actorAdd {
+    grid-column-start: 3;
+}
+
+#filmEdit {
+    grid-column-start: 4;
+}
+
+#filmDelete {
+    grid-column-start: 4;
+}
+
+#filmAdd,
+#filmDelete,
+#filmEdit,
+#actorAdd {
+    justify-self: stretch;
+}
+
+.sub-menu {
+    position: fixed;
+    left: 12vw;
+}
+
+.sub-menu h5 {
+    color: #FF7200;
+    font-size: 1.2em;
+    line-height: 3em;
+}
+
+.sub-menu ul a {
+    color: whitesmoke;
+    line-height: 1.6em;
+    text-decoration: none;
+}
+
+.sub-menu ul a:hover {
+    color: #FF7200;
+}
+
+.admin-tabs {
+    display: flex;
+    flex-direction: column;
+}
+
+#admin-film {
+    padding: 0px 20px;
+}
+
+#admin-film h3,
+.db-film-edit h3 {
+    color: #FF7200;
+    font-weight: 700;
+    font-size: 1.8em;
+    margin-top: 0.3em;
+    margin-bottom: 1em;
+}
+
+#admin-film form label,
+.db-film-edit form label,
+.db-film-edit form p,
+.contact-form label {
+    display: block;
+    padding: 7px 0px;
+    color: whitesmoke;
+}
+
+#admin-film form input,
+#admin-film form textarea,
+#admin-film form select,
+.db-film-edit form input,
+.db-film-edit form textarea,
+.db-film-edit form select,
+.contact-form input,
+.connect-form textarea {
+    border: 2px solid #FF7200;
+    background-color: whitesmoke;
+    padding: 7px;
+    width: 28rem;
+    color: #555;
+    margin-bottom: 1em;
+}
+
+#admin-film form select,
+.db-film-edit form select {
+    width: 29rem;
+    margin-bottom: 1em;
+}
+
+#admin-film form .select2-container--default {
+    border: 2px solid #FF7200;
+    margin-bottom: 1rem;
+}
+
+#admin-film form .select2-selection--single {
+    border-radius: 0px;
+}
+
+#admin-film form input:focus,
+#admin-film form textarea:focus,
+.db-film-edit form input:focus,
+.db-film-edit form textarea:focus, 
+.contact-form input,
+.connect-form textarea {
+    box-shadow:  inset 2px 2px 3px 0px #ff720061, inset -2px -2px 3px 0px #ff720061;
+}
+#admin-film .genre-checkbox,
+.db-film-edit form .genre-checkbox {
+    margin: 10px 0px;
+}
+#admin-film .genre-checkbox p,
+.db-film-edit form .genre-checkbox p {
+    padding: 5px 0px;
+}
+
+#admin-film .genre-checkbox [type="checkbox"],
+.db-film-edit form [type="checkbox"] {
+    display: inline-block;
+    width: fit-content;
+}
+
+#admin-film form .genre-checkbox label,
+.db-film-edit form .genre-checkbox label {
+    display: inline-block;
+}
+
+#admin-film [type="submit"],
+.db-film-edit form [type='submit'],
+.contact-form [type='submit'] {
+    width: 10rem;
+    display: block;
+    margin: 0 auto;
+    margin-top: 0.5em;
+}
+
+#actorDelete,
+#filmDelete {
+    margin-bottom: 3em;
+}
+
+#admin-film form .btn-delete {
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+#admin-film form .btn-delete:hover {
+    background-color: red;
+    color: white;
+    border-color: white;
+}
+
+.db-film-edit {
+    width: fit-content;
+    margin: auto;
+}
+
+.error {
+    color: red;
+    font-weight: bold;
+}
+
+/* serahc resutlt page */
+
+#search-result {
+    padding-top: 35px;
+    text-align: center;
+    min-height: 61vh;
+}
+
+#search-result,
+#search-result ul li a:hover,
+#search-result .back-to-index:hover {
+    color: white;
+}
+
+#search-result h3,
+#search-result .back-to-index {
+    font-family: 'Ubuntu', Arial, Helvetica, sans-serif;
+}
+
+#search-result h3,
+#search-result .back-to-index {
+    font-family: 'Ubuntu', Arial, Helvetica, sans-serif;
+    text-decoration: none;
+    font-size: 2em;
+    font-weight: bolder;
+    margin: 1em;
+}
+
+#search-result ul li {
+    padding: 15px 20px;
+}
+
+#search-result .back-to-index {
+    color: #FF7200;
+    text-decoration: none;
+    font-size: 1.2em;
+    line-height: 3em;
+}
+
+.contact-form {
+    width: fit-content;
+    margin: 30px auto;
 }

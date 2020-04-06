@@ -1,18 +1,17 @@
 <?php
 require_once 'functions/auth.php';
-online();
+session();
 header('Content-type: text/html; charset=utf-8');
 require_once 'styleswitcher.php';
-setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR.ISO8859-1');
 ?>
 
 <!DOCTYPE html>
-<html lang="fr_FR">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?=$_GET['id']?></title>
+    <title>ALLO SIMPLON</title>
 
     <!--SLICK-->
 
@@ -41,58 +40,54 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR.ISO8859-1');
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+    <!--FOTORAMA-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js"></script>
+
+
+    <script src="https://cdn.jsdelivr.net/parallax.js/1.4.2/parallax.min.js"></script>
 
 
 </head>
 
 <body>
-
     <?php
-    include 'include/nav.php';
+        include 'include/nav.php';
 
-    include 'include/connectBDD.php';
+        include 'include/connectBDD.php';
 
-    $id = $_GET['id'];
-
-    $req = $bdd->prepare("SELECT * FROM types WHERE types.id_genre =" . $id);
-    $req ->execute();
-    
-    $donnees = $req->fetch(PDO::FETCH_OBJ);
+        if(isset($_GET['search']) AND !empty($_GET['search'])) {
+            $search = htmlspecialchars($_GET['search']);
+            $req = $bdd->prepare('  SELECT f.id_film, f.nom
+                                    FROM films f
+                                    WHERE f.nom LIKE "%'.$search.'%"');
+            $req->execute();
+        
     ?>
 
-    <section class="fiche-genre">
+<section id="search-result">
 
-        <h2><?=$donnees->genre?></h2>
+    <ul class="result-list">
+        <?php if($req->rowCount()>0): ?>
+            <h3>Résultats de votre recherche</h3>
+        <?php while ($s = $req->fetch()): ?>
+            <li><a href="film_title.php?id=<?=$s['id_film']?>"><?=$s['nom']?></a></li>
+        <?php endwhile ?>
+        <?php else: ?>
+            <h2>Aucun résultat</h2>
+        <?php endif ?>
+    </ul>
 
-        <ul>
+    <a href="index.php" class="back-to-index">Retour à l'accueil</a>
 
-            <?php 
-                $req->closeCursor();
-                $req = $bdd->prepare('  SELECT types.genre, films.nom, films.id_film
-                                        FROM types 
-                                        LEFT JOIN est ON est.id_genre = types.id_genre 
-                                        LEFT JOIN films ON films.id_film = est.id_film 
-                                        WHERE types.id_genre ='.$id);
-                $req->execute();
-                
-                while($donnees = $req->fetch()) { 
-                    ?>
-                    <li>
-                        <a href="film_title.php/?id=<?=$donnees['id_film']?>"><?=$donnees['nom']?></a>
-                    </li>
-                <?php 
-                } ?>
-
-        </ul>
-
-    </section>
-
+</section>
     <?php 
-    
-    $req->closeCursor();
-    include 'include/footer.php';
-    ?>
+    // end of if
+        }
+    include 'include/footer.php'; ?>
 
 </body>
 

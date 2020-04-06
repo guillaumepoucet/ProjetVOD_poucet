@@ -9,10 +9,12 @@
 
     <div class="axelgauche">
 
-        <h5 class="axelH5">Filtres</h5>
+        <h5 class="axelH5">Sélection</h5>
 
         <h5 class="axelgenre">Genre</h5>
 
+        <div class="axelcase">
+            <a href="catalogue.php" onclick="browseMovies()">Tous les films</a>
         <!-- On récupère les données de la table types -->
         <?php
 
@@ -23,15 +25,13 @@
         while($genre=$req->fetch()) {
         ?>
 
-            <div class="axelcase">
-                <input type="checkbox" id="coding" name="" value="">
-                <label for="coding"><?=ucwords($genre['genre'])?></label>
-            </div>
-            
-        <?php
+                <a href="genre.php?id=<?=$genre['id_genre']?>"><?=ucwords($genre['genre'])?></a>
+                
+                <?php
         }
         // Fin de la boucle
         ?>
+        </div>
 
         <h5 class="axelgenre">Durée</h5>
         <div class="axelcase">

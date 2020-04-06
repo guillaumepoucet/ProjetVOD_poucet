@@ -2,7 +2,7 @@
 
     include '../include/connectBDD.php';
     
-    
+    setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR.ISO8859-1');
     
     $nom = !empty($_POST['nom']) ? $_POST['nom'] : NULL;
     $dateSortie = !empty($_POST['dateSortie']) ? $_POST['dateSortie'] : NULL;
@@ -10,14 +10,23 @@
     $duree = !empty($_POST['duree']) ? $_POST['duree'] : NULL;
     $synopsis = !empty($_POST['synopsis']) ? $_POST['synopsis'] : NULL;
     
-    // on récupère le dossier où sont stockés les affiches de film
+    // Checking if the movie came out more than 3 moinths ago
+    $date = new DateTime();
+    $date->modify('-3 month');
+    $result = $date->format('Y-m-d');
+    if ($date>$dateSortie) {
+        header('location:../admin.php?error=date');
+        exit();
+    };
+
+    // we get the movie poster directory
     $poster_dir = "assets\poster\\";
     $poster_file = basename($_FILES["poster"]["name"]);
     $targetPosterPath = $poster_dir . $poster_file;
     $uploadOk = 1;
     $imageFileType = strtolower(pathinfo($poster_file, PATHINFO_EXTENSION));
     
-    // Allow certain file formats
+    // Allowing certain file formats
     if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
     && $imageFileType != "gif" ) {
         echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
@@ -31,11 +40,11 @@
     // var_dump($posterName);
     // exit();
 
-    // lien youtube
+    // replacing the 'watch' string by 'embed'
     $trailer = str_replace("watch", "embed", $trailer);
   
-    $sql = $bdd->prepare ("INSERT INTO films (nom, dateSortie, trailer, duree, synopsis, poster )
-                          VALUES ( :nom, :dateSortie, :trailer, :duree, :synopsis, :poster)");
+    $sql = $bdd->prepare ("INSERT INTO films (nom, dateSortie, trailer, duree, synopsis, poster)
+                          VALUES (:nom, :dateSortie, :trailer, :duree, :synopsis, :poster)");
   
 
     $sql->execute(array(

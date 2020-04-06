@@ -97,6 +97,10 @@ require_once 'styleswitcher.php';
             });
         });
     </script>
+
+    <script>
+        function browseMovies()
+    </script>
 </body>
 
 </html>

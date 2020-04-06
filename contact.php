@@ -71,8 +71,8 @@ require_once 'styleswitcher.php';
     <label for="sujet">Sujet</label>
     <input type="text" id="sujet" name="sujet" placeholder="Sujet de votre message">
     
-    <label for="sujet">Sujet</label>
-    <input id="sujet" name="sujet" placeholder="Sujet de votre message" style="height:200px"></textarea>
+    <label for="sujet">Votre message</label>
+    <input id="sujet" name="sujet" placeholder="Votre message" style="height:200px"></textarea>
 
     <input type="submit" value="Submit">
 

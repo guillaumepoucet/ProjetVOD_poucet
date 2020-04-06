@@ -63,8 +63,8 @@ include 'include/nav.php'; ?>
 
 
             <?php
-            if (isset($_SESSION['error'])) {
-                echo "<span style='color:red;'>Check your input</span>";
+            if (isset($_GET['error'])) {
+                echo "<p class=\"error\">Nom ou mot de passe incorrect</p>";
             }
             ?> 
 

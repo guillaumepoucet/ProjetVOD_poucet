@@ -41,7 +41,10 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR.ISO8859-1');
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-
+    <!--FOTORAMA-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js"></script>
 
 
 </head>
@@ -64,10 +67,10 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR.ISO8859-1');
     $film = $req->fetch();
     ?>
 
-<h2 class="page-film"><?=$film['nom']?></h2>
+    <h2 class="page-film"><?=$film['nom']?></h2>
 
-</div >
-<?php
+    </div>
+    <?php
             $req->closeCursor();
             $req = $bdd->prepare('  SELECT films.*, types.*
                                     FROM films
@@ -76,11 +79,11 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR.ISO8859-1');
                                     WHERE films.id_film =' . $id);
             $req ->execute();
             ?>
-            
-            <?php while($donnees = $req->fetch()): ?>
-                <a href="fiche_genre.php?id=<?=$donnees['id_genre']?>" class="lien-genre"><?=$donnees['genre']?></a>
-            <?php endwhile ?>
-        
+
+    <?php while($donnees = $req->fetch()): ?>
+    <a href="genre.php?id=<?=$donnees['id_genre']?>" class="lien-genre"><?=$donnees['genre']?></a>
+    <?php endwhile ?>
+
     </div>
 
     <!--SYNOPSIS-->
@@ -94,9 +97,9 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR.ISO8859-1');
 
         </div>
     </div>
-        
 
-        <!--INFO FILM-->
+
+    <!--INFO FILM-->
 
 
     <div class="rond-titre">Résumé</div>
@@ -130,7 +133,7 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR.ISO8859-1');
 
 
     </div>
-    
+
     <?php
     
     ?>
@@ -151,10 +154,10 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR.ISO8859-1');
         ?>
 
         <?php while($acteur = $acteursListe->fetch()): ?>
-            <a href="./fiche_acteur.php?id=<?=$acteur['id_acteur']?>" class="acteur">
-                <img class="img-acteur" src="<?=$acteur['portrait']?>" alt="">
-                <div><?=$acteur['prenom'] . " " . $acteur['nom']?></div>
-            </a>
+        <a href="./fiche_acteur.php?id=<?=$acteur['id_acteur']?>" class="acteur">
+            <img class="img-acteur" src="<?=$acteur['portrait']?>" alt="">
+            <div><?=$acteur['prenom'] . " " . $acteur['nom']?></div>
+        </a>
         <?php endwhile ?>
 
     </section>
@@ -175,17 +178,17 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR.ISO8859-1');
         ?>
 
         <?php while($real = $realsListe->fetch()): ?>
-            <div class="real">
-                <div class="img-real">
-                    <img src="./img/real.jfif" alt="">
-                    <div><?=$real['prenom'] . " " . $real['nom']?></div>
-                </div>
-                <p class="text-real"><?=$real['bio']?></p>
+        <div class="real">
+            <div class="img-real">
+                <img src="./img/real.jfif" alt="">
+                <div><?=$real['prenom'] . " " . $real['nom']?></div>
             </div>
+            <p class="text-real"><?=$real['bio']?></p>
+        </div>
         <?php endwhile ?>
 
         <!-- movie trailer -->
-        
+
         <div class="ba-yt">
             <iframe width="400" height="250" src="<?=$film['trailer']?>" frameborder="0"
                 allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
@@ -196,22 +199,22 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR.ISO8859-1');
 
     <!-- film photo gallery -->
 
-    <div class="gallery">
+  
+        <!-- Fotorama -->
+    <div class="fotorama">
+        <div class="fotorama" data-width="1000" data-navposition="top" data-nav="thumbs" data-arrows="true" data-click="true"
+            data-swipe="true" data-trackpad="true" data-allowfullscreen="true">
 
-    <?php
+        <?php
+        $photosFilm = $bdd->prepare( "SELECT * FROM photofilm WHERE id_film =" . $film['id_film']);
+        $photosFilm ->execute();
+        ?>
 
-    $photosFilm = $bdd->prepare( "SELECT * FROM photofilm WHERE id_film =" . $film['id_film']);
-    $photosFilm ->execute();
-
-    while($photo = $photosFilm->fetch()) {
-    ?>
-
-        <img src="<?=$photo['path']?>" alt="<?=$photo['nom']?>">
-
-    <?php 
-    }
-    ?>
-
+        <?php while($photo = $photosFilm->fetch()): ?>
+                <a href="<?=$photo['path']?>" alt="<?=$photo['nom']?>">
+                <img src=""></a>
+                <?php endwhile ?>
+        </div>
     </div>
 
     <?php include 'include/footer.php';?>

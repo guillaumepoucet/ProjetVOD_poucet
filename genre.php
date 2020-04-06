@@ -48,55 +48,64 @@ setlocale(LC_TIME, 'fr', 'fr_FR', 'fr_FR.ISO8859-1');
 
 <body>
 
-    <?php
-    include 'include/nav.php';
+    <?php include 'include/nav.php'; ?>
+
+    <h2 class="axeltitreh2">Nos films</h2>
+
+    <?php include 'include/filtres.php';
 
     include 'include/connectBDD.php';
+    include './functions/filmDuration.php';
 
     $id = $_GET['id'];
 
-    $req = $bdd->prepare('SELECT * FROM acteurs WHERE id_acteur =' . $id);
+    $req = $bdd->prepare("SELECT * FROM types WHERE types.id_genre =" . $id);
     $req ->execute();
     
-    $acteur = $req->fetch();
+    $donnees = $req->fetch(PDO::FETCH_OBJ);
     ?>
-    <section class="fiche-acteur">
 
-        <div class="detail">
-            <img src="<?=$acteur['portrait']?>" alt="">
-            <p>Née le <?=strftime('%e %B %Y', strtotime($acteur['datebirth']))?></p>
-            <?php if (isset($acteur['datedeath'])):?>
-            <p>Décédé le <?=strftime('%e %B %Y', strtotime($acteur['datedeath']))?></p>
-            <?php endif ?>
+    <section class="fiche-genre">
+
+        <h2><?=$donnees->genre?></h2>
+
+        <div id="catalogue">
+
+            <?php 
+                $req->closeCursor();
+                $req = $bdd->prepare('  SELECT types.genre, films.nom, films.id_film, films.duree, films.poster
+                                        FROM types 
+                                        LEFT JOIN est ON est.id_genre = types.id_genre 
+                                        LEFT JOIN films ON films.id_film = est.id_film 
+                                        WHERE types.id_genre ='.$id);
+                $req->execute();
+                
+                while($donnees = $req->fetch()) { 
+                    ?>
+            <a href="./film_title.php?id=<?=$donnees['id_film'] ?>">
+                <div class="cardaxel">
+                    <img class="poster-img" src="<?=$donnees['poster']?>" alt="<?=$donnees['nom']?>">
+                    <div class="titrefilm"><?=$donnees['nom']?></div>
+                    <div class="infoaxel">
+                        <div class="textaxel">
+                            <p><?=filmDuration($donnees['duree'],'%&2h %02dm')?></p>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            <?php 
+                } ?>
+
         </div>
-        <div class="bio">
-            <h2><?=ucwords($acteur['prenom'] . " " . $acteur['nom'])?></h2>
-            <p><?=$acteur['bio']?></p>
 
-        <h3>Liste de ses films</h3>
-
-        <?php 
-        $req->closeCursor();
-        $req = $bdd->prepare('  SELECT f.id_film, f.nom
-                                FROM films f
-                                LEFT JOIN joue_dans AS j ON j.id_film = f.id_film
-                                LEFT JOIN acteurs ON acteurs.id_acteur = j.id_acteur
-                                WHERE acteurs.id_acteur =' . $id);
-        $req ->execute();
-        
-        while($films = $req->fetch()) {
-        ?>
-
-            <a href="film_title?id=<?=$films['id_film']?>"><?=$films['nom']?></a>
-
-        <?php
-        }
-        ?>
-
-</div>
     </section>
+    </div>
 
-    <?php include 'include/footer.php';?>
+    <?php 
+    
+    $req->closeCursor();
+    include 'include/footer.php';
+    ?>
 
 </body>
 

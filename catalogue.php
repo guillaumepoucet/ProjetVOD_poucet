@@ -17,7 +17,7 @@ require_once 'styleswitcher.php';
 
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" media="screen, projection" type="text/css" id="css" href="<?php echo $url; ?>" />
-    
+
 
     <!--GOOGLE FONTS-->
 
@@ -48,11 +48,13 @@ require_once 'styleswitcher.php';
     include 'include/nav.php';
     ?>
     <div>
-    <h2 class="axeltitreh2">Nos films</h2>
-        <?php 
-        include 'include/filtres.php';
-        include 'include/film_card.php'; 
-        ?>
+        <h2 class="axeltitreh2">Nos films</h2>
+        <?php include 'include/filtres.php'; ?>
+
+        <!--CATALOGUE FILMS-->
+        
+            <?php include 'include/film_card.php'; ?>
+        
     </div>
     <?php
     include 'include/paracata.php';
