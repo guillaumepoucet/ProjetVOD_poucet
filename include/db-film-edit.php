@@ -78,6 +78,7 @@ require_once '../styleswitcher.php';
 
             <label for="synopsis">Synopsis</label>
             <textarea id="sujet" name="synopsis" style="height:200px" placeholder="<?=$film['synopsis']?>"></textarea><br>
+            
             <label for="poster">Affiche</label>
             <input type="file" id="poster" name="poster"><br>
             

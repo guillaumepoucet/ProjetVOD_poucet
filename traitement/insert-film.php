@@ -10,14 +10,16 @@
     $duree = !empty($_POST['duree']) ? $_POST['duree'] : NULL;
     $synopsis = !empty($_POST['synopsis']) ? $_POST['synopsis'] : NULL;
     
-    // Checking if the movie came out more than 3 moinths ago
-    $date = new DateTime();
-    $date->modify('-3 month');
-    $result = $date->format('Y-m-d');
-    if ($date>$dateSortie) {
-        header('location:../admin.php?error=date');
-        exit();
-    };
+    // Checking if the movie came out more than 3 months ago
+    // $date = new DateTime();
+    // $date->modify('-3 month');
+    // $result = $date->format('Y-m-d');
+    // echo $date>$dateSortie;
+    // exit();
+    // if ($date>$dateSortie) {
+    //     header('location:../admin.php?error=date');
+    //     exit();
+    // };
 
     // we get the movie poster directory
     $poster_dir = "assets\poster\\";
