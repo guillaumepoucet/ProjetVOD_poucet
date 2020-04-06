@@ -1734,7 +1734,8 @@ label {
 
 #admin-film form label,
 .db-film-edit form label,
-.db-film-edit form p {
+.db-film-edit form p,
+.contact-form label {
     display: block;
     padding: 7px 0px;
     color: whitesmoke;
@@ -1745,7 +1746,9 @@ label {
 #admin-film form select,
 .db-film-edit form input,
 .db-film-edit form textarea,
-.db-film-edit form select {
+.db-film-edit form select,
+.contact-form input,
+.connect-form textarea {
     border: 2px solid #FF7200;
     background-color: whitesmoke;
     padding: 7px;
@@ -1772,8 +1775,10 @@ label {
 #admin-film form input:focus,
 #admin-film form textarea:focus,
 .db-film-edit form input:focus,
-.db-film-edit form textarea:focus {
-box-shadow:  inset 2px 2px 3px 0px #ff720061, inset -2px -2px 3px 0px #ff720061;
+.db-film-edit form textarea:focus, 
+.contact-form input,
+.connect-form textarea {
+    box-shadow:  inset 2px 2px 3px 0px #ff720061, inset -2px -2px 3px 0px #ff720061;
 }
 #admin-film .genre-checkbox,
 .db-film-edit form .genre-checkbox {
@@ -1796,7 +1801,8 @@ box-shadow:  inset 2px 2px 3px 0px #ff720061, inset -2px -2px 3px 0px #ff720061;
 }
 
 #admin-film [type="submit"],
-.db-film-edit form [type='submit'] {
+.db-film-edit form [type='submit'],
+.contact-form [type='submit'] {
     width: 10rem;
     display: block;
     margin: 0 auto;
@@ -1865,4 +1871,9 @@ box-shadow:  inset 2px 2px 3px 0px #ff720061, inset -2px -2px 3px 0px #ff720061;
     text-decoration: none;
     font-size: 1.2em;
     line-height: 3em;
+}
+
+.contact-form {
+    width: fit-content;
+    margin: 30px auto;
 }
