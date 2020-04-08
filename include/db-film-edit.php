@@ -57,7 +57,9 @@ require_once '../styleswitcher.php';
     <h3>Modifier <?=$film['nom']?></h3>
 
         <form action="../traitement/film-edit.php" method="POST" enctype="multipart/form-data">
-            <?php $film['id_film'] = $film['id_film'];?>
+            
+            <?php $_SESSION['film'] = $film['id_film'] ?>
+        
             <label for="nom">Titre du film</label>
             <input type="text" id="nom" name="nom" placeholder="<?=$film['nom']?>"><br>
 
@@ -82,24 +84,6 @@ require_once '../styleswitcher.php';
             <label for="poster">Affiche</label>
             <input type="file" id="poster" name="poster"><br>
             
-            <div class="genre-checkbox">
-                <p>Choisissez un genre :</p>
-                <?php
-
-$req = $bdd->prepare('SELECT * FROM types');
-    $req ->execute();
-    
-    while($genres = $req->fetch()) {
-        ?>
-
-<input type="checkbox" id="<?=$genres['id_genre']?>" name="<?=$genres['genre']?>"
-value="<?=$genres['genre']?>">
-<label for="<?=$genres['genre']?>"><?=$genres['genre']?></label><br>
-
-<?php
-    }
-    ?>
-            </div>
             <br>
             
             <input type="submit" value="Soumettre">
@@ -107,6 +91,7 @@ value="<?=$genres['genre']?>">
         </form>
         
     </div>
+
 </body>
 
 </html>

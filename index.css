@@ -1814,6 +1814,7 @@ label {
     display: block;
     margin: 0 auto;
     margin-top: 0.5em;
+    height: 36px;
 }
 
 #actorDelete,
@@ -1821,6 +1822,8 @@ label {
     margin-bottom: 3em;
 }
 
+#admin-film [type="submit"]:hover,
+.db-film-edit form [type='submit']:hover,
 #admin-film form .btn-delete {
     transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 }
@@ -1830,15 +1833,29 @@ label {
     color: white;
     border-color: white;
 }
+#admin-film form .search-button:hover {
+    color: #FF7200;
+    background-color: white;
+}
+
+#admin-film [type="submit"]:hover,
+.db-film-edit form [type='submit']:hover {
+    background-color: #FF7200;
+    color: white;
+}
 
 .db-film-edit {
     width: fit-content;
-    margin: auto;
+    margin: 1em auto;
 }
 
 .error {
     color: red;
     font-weight: bold;
+}
+
+.error.msg {
+    margin: 2em 2em 2em 0em;
 }
 
 /* serahc resutlt page */

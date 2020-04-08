@@ -93,8 +93,10 @@ require_once 'styleswitcher.php';
         </div>
 
     </section>
+    
     <?php include 'include/footer.php'; ?>
     <script src="functions/adminTab.js"></script>
+
 </body>
 
 </html>

@@ -22,7 +22,7 @@
     // };
 
     // we get the movie poster directory
-    $poster_dir = "assets\poster\\";
+    $poster_dir = "..\assets\poster\\";
     $poster_file = basename($_FILES["poster"]["name"]);
     $targetPosterPath = $poster_dir . $poster_file;
     $uploadOk = 1;
@@ -61,5 +61,7 @@
     move_uploaded_file($_FILES["poster"]["tmp_name"], $targetPosterPath);
   
     $sql-> closeCursor();
-    header('location:../admin.php');
+
+    $_GET['film'] = 'added';
+    header('location:../admin.php?film=added');
 ?>

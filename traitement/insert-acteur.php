@@ -12,7 +12,7 @@
 
 
     // we get the movie poster directory
-    $portrait_dir = "assets\img\acteur\\";
+    $portrait_dir = "..\assets\img\acteur\\";
     $portrait_file = basename($_FILES["portrait"]["name"]);
     $targetPortraitPath = $portrait_dir . $portrait_file;
     $uploadOk = 1;

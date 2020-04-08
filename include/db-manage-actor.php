@@ -28,7 +28,7 @@
         </form>
 
 
-            <!-- <script>alert("L'acteur a bien été enregistré.\<br\>N'oubliez pas de l'ajouter à un film le cas échéant")</script> -->
+        <!-- <script>alert("L'acteur a bien été enregistré.\<br\>N'oubliez pas de l'ajouter à un film le cas échéant")</script> -->
 
     </div>
 </div>
@@ -38,7 +38,7 @@
         <h3>Supprimer un acteur</h3>
 
         <div class="delete-actor">
-            <form action="../traitement/film-delete.php" method="POST">
+            <form action="traitement/actor-delete.php" method="POST">
                 <label for="films"><b>Sélectionnez un acteur à supprimer :</b></label>
                 <select name="acteurs" id="acteurs">
                     <option selected disabled>Sélectionner...</option>
@@ -67,6 +67,11 @@
                 <input type="submit" value="Supprimer" class="btn-delete">
 
             </form>
+
+            <?php if(isset($_GET['actor']) && $_GET['actor'] == 'deleted'): ?>
+            <?= "<p class=\"error msg\">L'acteur a bien été supprimé</p>"?>
+            <?php endif ?>
+
         </div>
     </div>
 
