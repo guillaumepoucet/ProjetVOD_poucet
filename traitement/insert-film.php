@@ -10,17 +10,19 @@
     $duree = !empty($_POST['duree']) ? $_POST['duree'] : NULL;
     $synopsis = !empty($_POST['synopsis']) ? $_POST['synopsis'] : NULL;
     
-    // Checking if the movie came out more than 3 moinths ago
-    $date = new DateTime();
-    $date->modify('-3 month');
-    $result = $date->format('Y-m-d');
-    if ($date>$dateSortie) {
-        header('location:../admin.php?error=date');
-        exit();
-    };
+    // Checking if the movie came out more than 3 months ago
+    // $date = new DateTime();
+    // $date->modify('-3 month');
+    // $result = $date->format('Y-m-d');
+    // echo $date>$dateSortie;
+    // exit();
+    // if ($date>$dateSortie) {
+    //     header('location:../admin.php?error=date');
+    //     exit();
+    // };
 
     // we get the movie poster directory
-    $poster_dir = "assets\poster\\";
+    $poster_dir = "..\assets\poster\\";
     $poster_file = basename($_FILES["poster"]["name"]);
     $targetPosterPath = $poster_dir . $poster_file;
     $uploadOk = 1;
@@ -29,7 +31,7 @@
     // Allowing certain file formats
     if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
     && $imageFileType != "gif" ) {
-        echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+        echo "Désolé, seulement les fichiers JPG, JPEG, PNG & GIF sont acceptés.";
         $uploadOk = 0;
     };
 
@@ -59,5 +61,7 @@
     move_uploaded_file($_FILES["poster"]["tmp_name"], $targetPosterPath);
   
     $sql-> closeCursor();
-    header('location:../admin.php');
+
+    $_GET['film'] = 'added';
+    header('location:../admin.php?film=added');
 ?>

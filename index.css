@@ -1665,7 +1665,8 @@ label {
 
 #admin-film {
     display: grid;
-    grid-template-columns: 13vw 1fr 2fr 2fr;
+    grid-template-columns: 0vw 1fr 2fr 2fr;
+    grid-column-gap: 3em;
     grid-row-gap: 3em;
 }
 
@@ -1695,7 +1696,7 @@ label {
 
 .sub-menu {
     position: fixed;
-    left: 12vw;
+    left: 6vw;
 }
 
 .sub-menu h5 {
@@ -1735,7 +1736,9 @@ label {
 #admin-film form label,
 .db-film-edit form label,
 .db-film-edit form p,
-.contact-form label {
+.contact-form label,
+.connect-form label,
+.connect-form a {
     display: block;
     padding: 7px 0px;
     color: whitesmoke;
@@ -1748,7 +1751,9 @@ label {
 .db-film-edit form textarea,
 .db-film-edit form select,
 .contact-form input,
-.connect-form textarea {
+.connect-form textarea,
+.connect-form input,
+.connect-form a {
     border: 2px solid #FF7200;
     background-color: whitesmoke;
     padding: 7px;
@@ -1776,8 +1781,8 @@ label {
 #admin-film form textarea:focus,
 .db-film-edit form input:focus,
 .db-film-edit form textarea:focus, 
-.contact-form input,
-.connect-form textarea {
+.contact-form input:focus,
+.connect-form input:focus {
     box-shadow:  inset 2px 2px 3px 0px #ff720061, inset -2px -2px 3px 0px #ff720061;
 }
 #admin-film .genre-checkbox,
@@ -1802,11 +1807,14 @@ label {
 
 #admin-film [type="submit"],
 .db-film-edit form [type='submit'],
-.contact-form [type='submit'] {
+.contact-form [type='submit'],
+.connect-form [type='submit'],
+.connect-form a {
     width: 10rem;
     display: block;
     margin: 0 auto;
     margin-top: 0.5em;
+    height: 36px;
 }
 
 #actorDelete,
@@ -1814,6 +1822,8 @@ label {
     margin-bottom: 3em;
 }
 
+#admin-film [type="submit"]:hover,
+.db-film-edit form [type='submit']:hover,
 #admin-film form .btn-delete {
     transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 }
@@ -1823,15 +1833,29 @@ label {
     color: white;
     border-color: white;
 }
+#admin-film form .search-button:hover {
+    color: #FF7200;
+    background-color: white;
+}
+
+#admin-film [type="submit"]:hover,
+.db-film-edit form [type='submit']:hover {
+    background-color: #FF7200;
+    color: white;
+}
 
 .db-film-edit {
     width: fit-content;
-    margin: auto;
+    margin: 1em auto;
 }
 
 .error {
     color: red;
     font-weight: bold;
+}
+
+.error.msg {
+    margin: 2em 2em 2em 0em;
 }
 
 /* serahc resutlt page */
@@ -1876,4 +1900,22 @@ label {
 .contact-form {
     width: fit-content;
     margin: 30px auto;
+}
+
+/* .db-film-search {
+    display: flex;
+} */
+
+/* .db-film-search [type='submit']{
+    align-self: flex-start;
+    width: fit-content;
+} */
+
+@media (max-width: 1199.98px) {
+    #admin-film {
+        grid-template-columns: 13vw 1fr 2fr 2fr;
+    }
+    .sub-menu {
+        left: 12vw;
+    }
 }

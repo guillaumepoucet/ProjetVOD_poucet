@@ -1,6 +1,10 @@
 <div id="filmAdd" class="">
     <h3>Ajouter un film</h3>
 
+    <?php if(isset($_GET['film']) && $_GET['film'] == 'added'): ?>
+            <?= "<p class=\"error msg\">Le film a bien été ajouté</p>"?>
+            <?php endif ?>
+
     <div class="insert-film">
 
         <form action="traitement/insert-film.php" method="POST" enctype="multipart/form-data">
@@ -9,7 +13,7 @@
             <input type="text" id="nom" name="nom" placeholder="Titre du film"><br>
 
             <?php if(isset($_GET['error'])): ?>
-                <?= "<p class=\"error\">La sortie ne peut être inférieure à 3 mois</p>"?>
+            <?= "<p class=\"error\">La sortie ne peut être inférieure à 3 mois</p>"?>
             <?php endif ?>
 
             <label for="dateSortie">Date de sortie</label>
@@ -29,24 +33,6 @@
             <label for="poster">Affiche</label>
             <input type="file" id="poster" name="poster"><br>
 
-            <div class="genre-checkbox">
-                <p>Choisissez un genre :</p>
-                <?php
-
-    $req = $bdd->prepare('SELECT * FROM types');
-    $req ->execute();
-
-    while($genres = $req->fetch()) {
-    ?>
-
-                <input type="checkbox" id="<?=$genres['id_genre']?>" name="<?=$genres['genre']?>"
-                    value="<?=$genres['genre']?>">
-                <label for="<?=$genres['genre']?>"><?=$genres['genre']?></label><br>
-
-                <?php
-    }
-    ?>
-            </div>
             <br>
 
             <input type="submit" value="Soumettre">
@@ -60,14 +46,14 @@
         <h3>Supprimer un film</h3>
 
         <div class="delete-film">
-            <form action="../traitement/film-delete.php" method="POST">
+            <form action="traitement/film-delete.php" method="POST">
                 <label for="films"><b>Sélectionner un film par son titre :</b></label>
-                <select class="" style="" name="films" id="films">
+                <select name="films" id="films">
                     <option selected disabled>Sélectionner...</option>
 
                     <?php 
 
-        $req = $bdd->prepare('SELECT * FROM films');
+        $req = $bdd->prepare('SELECT id_film, nom FROM films');
         $req ->execute();
 
         while($films = $req->fetch()) {
@@ -78,9 +64,22 @@
         ?>
                 </select>
 
+                <label for="search">Ou effectuez une recherche</label>
+
+                <div class="db-film-search">
+                    <input type="text" placeholder="" name="search">
+                    <button class="search-button" type="submit"><i class="fa fa-search"></i></button>
+                </div>
+
                 <input type="submit" value="Supprimer" class="btn-delete">
 
             </form>
+
+            
+            <?php if(isset($_GET['film']) && $_GET['film'] == 'deleted'): ?>
+            <?= "<p class=\"error msg\">Le film a bien été supprimé</p>"?>
+            <?php endif ?>
+
         </div>
     </div>
 
@@ -96,7 +95,7 @@
                     <option selected disabled>Sélectionner...</option>
 
                     <?php 
-                            $req = $bdd->prepare('SELECT * FROM films');
+                            $req = $bdd->prepare('SELECT id_film, nom FROM films');
                             $req ->execute();
 
             while($films = $req->fetch()) {
@@ -107,7 +106,14 @@
             ?>
                 </select><br>
 
-                <input type="submit" name ="submit" value="Continuer" formtarget="popup">
+                <label for="search">Ou effectuez une recherche</label>
+
+                <div class="db-film-search">
+                    <input type="text" placeholder="" name="search">
+                    <button class="search-button" type="submit"><i class="fa fa-search"></i></button>
+                </div>
+
+                <input type="submit" value="Continuer" >
 
             </form>
         </div>
