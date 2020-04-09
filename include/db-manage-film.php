@@ -1,9 +1,9 @@
-<div id="filmAdd" class="">
+<div id="filmAdd" class="subtabcontent">
     <h3>Ajouter un film</h3>
 
     <?php if(isset($_GET['film']) && $_GET['film'] == 'added'): ?>
-            <?= "<p class=\"error msg\">Le film a bien été ajouté</p>"?>
-            <?php endif ?>
+    <?= "<p class=\"error msg\">Le film a bien été ajouté</p>"?>
+    <?php endif ?>
 
     <div class="insert-film">
 
@@ -41,82 +41,82 @@
     </div>
 </div>
 
-<div>
-    <div id="filmDelete" class="">
-        <h3>Supprimer un film</h3>
 
-        <div class="delete-film">
-            <form action="traitement/film-delete.php" method="POST">
-                <label for="films"><b>Sélectionner un film par son titre :</b></label>
-                <select name="films" id="films">
-                    <option selected disabled>Sélectionner...</option>
+<div id="filmDelete" class="subtabcontent">
+    <h3>Supprimer un film</h3>
 
-                    <?php 
+    <div class="delete-film">
+        <form action="traitement/film-delete.php" method="POST">
+            <label for="films"><b>Sélectionner un film par son titre :</b></label>
+            <select name="films" id="films">
+                <option selected disabled>Sélectionner...</option>
+
+                <?php 
 
         $req = $bdd->prepare('SELECT id_film, nom FROM films');
         $req ->execute();
 
         while($films = $req->fetch()) {
         ?>
-                    <option value="<?=$films['id_film']?>"><?=$films['nom']?></option>
-                    <?php
+                <option value="<?=$films['id_film']?>"><?=$films['nom']?></option>
+                <?php
         }
         ?>
-                </select>
+            </select>
 
-                <label for="search">Ou effectuez une recherche</label>
+            <label for="search">Ou effectuez une recherche</label>
 
-                <div class="db-film-search">
-                    <input type="text" placeholder="" name="search">
-                    <button class="search-button" type="submit"><i class="fa fa-search"></i></button>
-                </div>
+            <div class="db-film-search">
+                <input type="text" placeholder="" name="search">
+                <button class="search-button" type="submit"><i class="fa fa-search"></i></button>
+            </div>
 
-                <input type="submit" value="Supprimer" class="btn-delete">
+            <input type="submit" value="Supprimer" class="btn-delete">
 
-            </form>
+        </form>
 
-            
-            <?php if(isset($_GET['film']) && $_GET['film'] == 'deleted'): ?>
-            <?= "<p class=\"error msg\">Le film a bien été supprimé</p>"?>
-            <?php endif ?>
 
-        </div>
+        <?php if(isset($_GET['film']) && $_GET['film'] == 'deleted'): ?>
+        <?= "<p class=\"error msg\">Le film a bien été supprimé</p>"?>
+        <?php endif ?>
+
     </div>
+</div>
 
-    <div id="filmEdit" class="">
 
-        <h3>&Eacute;diter un film</h3>
-        <div class="edit-film">
-            <form action="include/db-film-edit.php" method="POST">
+<div id="filmEdit" class="subtabcontent">
 
-                <label for="films"><b>Sélectionner un film par son titre :</b></label>
+    <h3>&Eacute;diter un film</h3>
+    <div class="edit-film">
+        <form action="include/db-film-edit.php" method="POST">
 
-                <select name="films" id="films">
-                    <option selected disabled>Sélectionner...</option>
+            <label for="films"><b>Sélectionner un film par son titre :</b></label>
 
-                    <?php 
+            <select name="films" id="films">
+                <option selected disabled>Sélectionner...</option>
+
+                <?php 
                             $req = $bdd->prepare('SELECT id_film, nom FROM films');
                             $req ->execute();
 
             while($films = $req->fetch()) {
             ?>
-                    <option value="<?=$films['id_film']?>"><?=$films['nom']?></option>
-                    <?php
+                <option value="<?=$films['id_film']?>"><?=$films['nom']?></option>
+                <?php
             }
             ?>
-                </select><br>
+            </select><br>
 
-                <label for="search">Ou effectuez une recherche</label>
+            <label for="search">Ou effectuez une recherche</label>
 
-                <div class="db-film-search">
-                    <input type="text" placeholder="" name="search">
-                    <button class="search-button" type="submit"><i class="fa fa-search"></i></button>
-                </div>
+            <div class="db-film-search">
+                <input type="text" placeholder="" name="search">
+                <button class="search-button" type="submit"><i class="fa fa-search"></i></button>
+            </div>
 
-                <input type="submit" value="Continuer" >
+            <input type="submit" value="Continuer">
 
-            </form>
-        </div>
-
+        </form>
     </div>
+
 </div>

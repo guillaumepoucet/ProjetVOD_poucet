@@ -3,45 +3,75 @@ session_start();
 
 include '../include/connectBDD.php';
 
-  $id_film = !empty($_SESSION['film']) ? $_SESSION['film'] : NULL;
+$id_film = !empty($_SESSION['film']) ? $_SESSION['film'] : NULL;
 
-  $nom = !empty($_POST['nom']) ? $_POST['nom'] : NULL;
-  $dateSortie = !empty($_POST['dateSortie']) ? $_POST['dateSortie'] : NULL;
-  $trailer = !empty($_POST['trailer']) ? $_POST['trailer'] : NULL;
-  $duree = !empty($_POST['duree']) ? $_POST['duree'] : NULL;
-  $synopsis = !empty($_POST['synopsis']) ? $_POST['synopsis'] : NULL;
-  $poster = !empty($_POST['poster']) ? $_POST['poster'] : NULL;
+$nom = !empty($_POST['nom']) ? $_POST['nom'] : NULL;
+$dateSortie = !empty($_POST['dateSortie']) ? $_POST['dateSortie'] : NULL;
+$trailer = !empty($_POST['trailer']) ? $_POST['trailer'] : NULL;
+$duree = !empty($_POST['duree']) ? $_POST['duree'] : NULL;
+$synopsis = !empty($_POST['synopsis']) ? $_POST['synopsis'] : NULL;
+
+
+if(!empty($nom)) {
+  $sql = $bdd->prepare('UPDATE films SET nom = ? WHERE id_film ='.$id_film);
+  $sql->execute([$nom]);
+};
+
+if(!empty($dateSortie)) {
+  $sql = $bdd->prepare('UPDATE films SET dateSortie = ? WHERE id_film ='.$id_film);
+  $sql->execute([$dateSortie]);
+};
+
+if(!empty($trailer)) {
+  $trailer = str_replace("watch", "embed", $trailer);
   
-  if(!empty($nom)) {
-    $sql = $bdd->prepare('UPDATE films SET nom = ? WHERE id_film ='.$id_film);
-    $sql->execute([$nom]);
-  };
+  $sql = $bdd->prepare('UPDATE films SET trailer = ? WHERE id_film ='.$id_film);
+  $sql->execute([$trailer]);
+};
 
-  if(!empty($dateSortie)) {
-    $sql = $bdd->prepare('UPDATE films SET dateSortie = ? WHERE id_film ='.$id_film);
-    $sql->execute([$dateSortie]);
-  };
+if(!empty($duree)) {
+  $sql = $bdd->prepare('UPDATE films SET duree = ? WHERE id_film ='.$id_film);
+  $sql->execute([$duree]);
+};
 
-  if(!empty($trailer)) {
-    $sql = $bdd->prepare('UPDATE films SET trailer = ? WHERE id_film ='.$id_film);
-    $sql->execute([$trailer]);
-  };
+if(!empty($synopsis)) {
+  $sql = $bdd->prepare('UPDATE films SET synopsis = ? WHERE id_film ='.$id_film);
+  $sql->execute([$synopsis]);
+};
 
-  if(!empty($duree)) {
-    $sql = $bdd->prepare('UPDATE films SET duree = ? WHERE id_film ='.$id_film);
-    $sql->execute([$duree]);
-  };
+if(!empty($_FILES['poster']['name'])) {
 
-  if(!empty($synopsis)) {
-    $sql = $bdd->prepare('UPDATE films SET synopsis = ? WHERE id_film ='.$id_film);
-    $sql->execute([$synopsis]);
-  };
+    $oldPoster = $bdd->prepare ('SELECT poster FROM films WHERE id_film ='.$id_film);
+    $oldPoster -> execute();
+    
+    $oldPoster = $oldPoster->fetchColumn();
+    $oldPoster = "..\\".$oldPoster;
+    
+    if(isset($oldPoster) && ($oldPoster != "..\\")) {
+      unlink($oldPoster);
+    };
 
-  if(!empty($poster)) {
-    $sql = $bdd->prepare('UPDATE films SET poster = ? WHERE id_film ='.$id_film);
-    $sql->execute([$poster]);
+    // we get the movie poster directory
+    $poster_dir = "assets\poster\\";
+    $poster_file = basename($_FILES["poster"]["name"]);
+    $targetPosterPath = $poster_dir . $poster_file;
+    $uploadOk = 1;
+    $imageFileType = strtolower(pathinfo($poster_file, PATHINFO_EXTENSION));
+
+    // Allowing certain file formats
+    if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+    && $imageFileType != "gif" ) {
+      echo "Désolé, seulement les fichiers JPG, JPEG, PNG & GIF sont acceptés.";
+      $uploadOk = 0;
+    };
+      
+      $sql = $bdd->prepare('UPDATE films SET poster = ? WHERE id_film ='.$id_film);
+      $sql->execute([$targetPosterPath]);
+      
+      move_uploaded_file($_FILES["poster"]["tmp_name"], "..\\".$targetPosterPath);
   };
 
   unset($_SESSION['film']);
-  $sql-> closeCursor();
-  echo "le film a bien été mis à jour";
+
+  echo "le film a bien été mis à jour.";
+  echo "<a href=\"../admin.php\">Admin</a>";

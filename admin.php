@@ -96,6 +96,7 @@ require_once 'styleswitcher.php';
     
     <?php include 'include/footer.php'; ?>
     <script src="functions/adminTab.js"></script>
+    <script src="functions\subtab.js"></script>
 
 </body>
 

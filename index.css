@@ -1658,6 +1658,24 @@ label {
     height: 100%;
 }
 
+.subtabcontent {
+    color: white;
+    display: none;
+    height: 100%;
+}
+
+.subtablinks {
+    display: block;
+    background-color: transparent;
+    color: white;
+    border: none;
+    padding: 0px;    
+}
+
+.sub-menu  {
+    justify-self: center;
+}
+
 .admin {
     margin-top: 60px;
     color: white;
@@ -1665,9 +1683,7 @@ label {
 
 #admin-film {
     display: grid;
-    grid-template-columns: 0vw 1fr 2fr 2fr;
     grid-column-gap: 3em;
-    grid-row-gap: 3em;
 }
 
 #admin-film form {
@@ -1675,28 +1691,12 @@ label {
 }
 
 #filmAdd,
-#actorAdd {
-    grid-column-start: 3;
-}
-
-#filmEdit {
-    grid-column-start: 4;
-}
-
-#filmDelete {
-    grid-column-start: 4;
-}
-
-#filmAdd,
-#filmDelete,
 #filmEdit,
-#actorAdd {
-    justify-self: stretch;
-}
-
-.sub-menu {
-    position: fixed;
-    left: 6vw;
+#filmDelete,
+#actorAdd,
+#actorEdit,
+#actorDelete {
+    grid-column-start: 2;
 }
 
 .sub-menu h5 {
@@ -1705,13 +1705,12 @@ label {
     line-height: 3em;
 }
 
-.sub-menu ul a {
+.sub-menu button {
     color: whitesmoke;
     line-height: 1.6em;
-    text-decoration: none;
 }
 
-.sub-menu ul a:hover {
+.sub-menu button:hover {
     color: #FF7200;
 }
 
@@ -1817,11 +1816,6 @@ label {
     height: 36px;
 }
 
-#actorDelete,
-#filmDelete {
-    margin-bottom: 3em;
-}
-
 #admin-film [type="submit"]:hover,
 .db-film-edit form [type='submit']:hover,
 #admin-film form .btn-delete {
@@ -1901,6 +1895,7 @@ label {
     width: fit-content;
     margin: 30px auto;
 }
+
 
 /* .db-film-search {
     display: flex;

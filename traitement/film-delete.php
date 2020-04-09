@@ -10,6 +10,7 @@ $poster = $bdd->prepare ('SELECT poster FROM films WHERE id_film ='.$id_film);
 $poster -> execute();
 
 $poster = $poster->fetchColumn();
+$poster = "..\\" . $poster;
 
 unlink($poster);
 

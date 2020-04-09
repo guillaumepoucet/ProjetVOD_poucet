@@ -1,4 +1,4 @@
-<div id="actorAdd" class="">
+<div id="actorAdd" class="subtabcontent">
     <h3>Ajouter un acteur</h3>
 
     <div class="insert-actor">
@@ -33,84 +33,83 @@
     </div>
 </div>
 
-<div class="sub-grid">
-    <div id="actorDelete" class="">
-        <h3>Supprimer un acteur</h3>
 
-        <div class="delete-actor">
-            <form action="traitement/actor-delete.php" method="POST">
-                <label for="films"><b>Sélectionnez un acteur à supprimer :</b></label>
-                <select name="acteurs" id="acteurs">
-                    <option selected disabled>Sélectionner...</option>
+<div id="actorDelete" class="subtabcontent">
+    <h3>Supprimer un acteur</h3>
 
-                    <?php 
+    <div class="delete-actor">
+        <form action="traitement/actor-delete.php" method="POST">
+            <label for="films"><b>Sélectionnez un acteur à supprimer :</b></label>
+            <select name="acteurs" id="acteurs">
+                <option selected disabled>Sélectionner...</option>
+
+                <?php 
 
         $req = $bdd->prepare('SELECT * FROM acteurs');
         $req ->execute();
 
         while($acteurs = $req->fetch()) {
         ?>
-                    <option value="<?=$acteurs['id_acteur']?>"><?=ucwords($acteurs['nom'] . ", " . $acteurs['prenom'])?>
-                    </option>
-                    <?php
+                <option value="<?=$acteurs['id_acteur']?>"><?=ucwords($acteurs['nom'] . ", " . $acteurs['prenom'])?>
+                </option>
+                <?php
         }
         ?>
-                </select>
+            </select>
 
-                <label for="search">Ou effectuez une recherche</label>
+            <label for="search">Ou effectuez une recherche</label>
 
-                <div class="db-film-search">
-                    <input type="text" placeholder="" name="search">
-                    <button class="search-button" type="submit"><i class="fa fa-search"></i></button>
-                </div>
+            <div class="db-film-search">
+                <input type="text" placeholder="" name="search">
+                <button class="search-button" type="submit"><i class="fa fa-search"></i></button>
+            </div>
 
-                <input type="submit" value="Supprimer" class="btn-delete">
+            <input type="submit" value="Supprimer" class="btn-delete">
 
-            </form>
+        </form>
 
-            <?php if(isset($_GET['actor']) && $_GET['actor'] == 'deleted'): ?>
-            <?= "<p class=\"error msg\">L'acteur a bien été supprimé</p>"?>
-            <?php endif ?>
+        <?php if(isset($_GET['actor']) && $_GET['actor'] == 'deleted'): ?>
+        <?= "<p class=\"error msg\">L'acteur a bien été supprimé</p>"?>
+        <?php endif ?>
 
-        </div>
     </div>
+</div>
 
-    <div id="actorEdit" class="">
+<div id="actorEdit" class="subtabcontent">
 
-        <h3>Modifier les infos d'un acteur</h3>
-        <div class="edit-actor">
-            <form action="traitement/film-edit.php" method="POST">
+    <h3>Modifier les infos d'un acteur</h3>
+    <div class="edit-actor">
+        <form action="include\db-actor-edit.php" method="POST">
 
-                <label for="films"><b>Sélectionner un acteur à modifier :</b></label>
+            <label for="films"><b>Sélectionner un acteur à modifier :</b></label>
 
-                <select name="acteurs" id="acteurs">
-                    <option selected disabled>Sélectionner...</option>
+            <select name="acteurs" id="acteurs">
+                <option selected disabled>Sélectionner...</option>
 
-                    <?php 
+                <?php 
 
         $req = $bdd->prepare('SELECT * FROM acteurs');
         $req ->execute();
 
         while($acteurs = $req->fetch()) {
         ?>
-                    <option value="<?=$acteurs['id_acteur']?>"><?=ucwords($acteurs['nom'] . ", " . $acteurs['prenom'])?>
-                    </option>
-                    <?php
+                <option value="<?=$acteurs['id_acteur']?>"><?=ucwords($acteurs['nom'] . ", " . $acteurs['prenom'])?>
+                </option>
+                <?php
         }
         ?>
-                </select>
-                <br>
+            </select>
+            <br>
 
-                <label for="search">Ou effectuez une recherche</label>
+            <label for="search">Ou effectuez une recherche</label>
 
-                <div class="db-film-search">
-                    <input type="text" placeholder="" name="search">
-                    <button class="search-button" type="submit"><i class="fa fa-search"></i></button>
-                </div>
+            <div class="db-film-search">
+                <input type="text" placeholder="" name="search">
+                <button class="search-button" type="submit"><i class="fa fa-search"></i></button>
+            </div>
 
-                <input type="submit" value="Continuer">
+            <input type="submit" value="Continuer">
 
-            </form>
-        </div>
+        </form>
     </div>
 </div>
