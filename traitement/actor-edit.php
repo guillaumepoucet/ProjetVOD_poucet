@@ -3,56 +3,56 @@ session_start();
 
 include '../include/connectBDD.php';
 
-  $id_film = !empty($_SESSION['film']) ? $_SESSION['film'] : NULL;
+  $id_acteur = !empty($_SESSION['acteur']) ? $_SESSION['acteur'] : NULL;
 
   $nom = !empty($_POST['nom']) ? $_POST['nom'] : NULL;
-  $dateSortie = !empty($_POST['dateSortie']) ? $_POST['dateSortie'] : NULL;
-  $trailer = !empty($_POST['trailer']) ? $_POST['trailer'] : NULL;
-  $duree = !empty($_POST['duree']) ? $_POST['duree'] : NULL;
-  $synopsis = !empty($_POST['synopsis']) ? $_POST['synopsis'] : NULL;
-  
+  $prenom = !empty($_POST['prenom']) ? $_POST['prenom'] : NULL;
+  $dateBirth = !empty($_POST['dateBirth']) ? $_POST['dateBirth'] : NULL;
+  $dateDeath = !empty($_POST['dateDeath']) ? $_POST['dateDeath'] : NULL;
+  $bio = !empty($_POST['bio']) ? $_POST['bio'] : NULL;
+
   if(!empty($nom)) {
-    $sql = $bdd->prepare('UPDATE films SET nom = ? WHERE id_film ='.$id_film);
+    $sql = $bdd->prepare('UPDATE acteurs SET nom = ? WHERE id_acteur ='.$id_acteur);
     $sql->execute([$nom]);
   };
 
-  if(!empty($dateSortie)) {
-    $sql = $bdd->prepare('UPDATE films SET dateSortie = ? WHERE id_film ='.$id_film);
-    $sql->execute([$dateSortie]);
+  if(!empty($prenom)) {
+    $sql = $bdd->prepare('UPDATE acteurs SET prenom = ? WHERE id_acteur ='.$id_acteur);
+    $sql->execute([$prenom]);
   };
 
-  if(!empty($trailer)) {
-    $trailer = str_replace("watch", "embed", $trailer);
-
-    $sql = $bdd->prepare('UPDATE films SET trailer = ? WHERE id_film ='.$id_film);
-    $sql->execute([$trailer]);
+  if(!empty($dateBirth)) {
+    $sql = $bdd->prepare('UPDATE acteurs SET datebirth = ? WHERE id_acteur ='.$id_acteur);
+    $sql->execute([$dateBirth]);
   };
 
-  if(!empty($duree)) {
-    $sql = $bdd->prepare('UPDATE films SET duree = ? WHERE id_film ='.$id_film);
-    $sql->execute([$duree]);
+  if(!empty($dateDeath)) {
+    $sql = $bdd->prepare('UPDATE acteurs SET datedeath = ? WHERE id_acteur ='.$id_acteur);
+    $sql->execute([$dateDeath]);
   };
 
-  if(!empty($synopsis)) {
-    $sql = $bdd->prepare('UPDATE films SET synopsis = ? WHERE id_film ='.$id_film);
-    $sql->execute([$synopsis]);
+  if(!empty($bio)) {
+    $sql = $bdd->prepare('UPDATE acteurs SET bio = ? WHERE id_acteur ='.$id_acteur);
+    $sql->execute([$bio]);
   };
 
-  if(!empty($_FILES)) {
-    $oldPoster = $bdd->prepare ('SELECT poster FROM films WHERE id_film ='.$id_film);
-    $oldPoster -> execute();
+  if(!empty($_FILES['portrait']['name'])) {
+    $oldPortrait = $bdd->prepare ('SELECT portrait FROM acteurs WHERE id_acteur ='.$id_acteur);
+    $oldPortrait -> execute();
 
-    $oldPoster = $oldPoster->fetchColumn();
-      if(!empty($oldPoster)){
-      unlink($oldPoster);
+    $oldPortrait = $oldPortrait->fetchColumn();
+    $oldPortrait = "..\\".$oldPortrait;
+
+      if(!empty($oldPortrait) && ($oldPortrait != "..\\")) {
+        unlink($oldPortrait);
       }
 
-    // we get the movie poster directory
-    $poster_dir = "assets\poster\\";
-    $poster_file = basename($_FILES["poster"]["name"]);
-    $targetPosterPath = $poster_dir . $poster_file;
+    // we get the movie Portrait directory
+    $portrait_dir = "assets\img\acteur\\";
+    $portrait_file = basename($_FILES["portrait"]["name"]);
+    $targetPortraitPath = $portrait_dir . $portrait_file;
     $uploadOk = 1;
-    $imageFileType = strtolower(pathinfo($poster_file, PATHINFO_EXTENSION));
+    $imageFileType = strtolower(pathinfo($portrait_file, PATHINFO_EXTENSION));
     
     // Allowing certain file formats
     if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
@@ -61,12 +61,13 @@ include '../include/connectBDD.php';
         $uploadOk = 0;
     };
 
-    move_uploaded_file($_FILES["poster"]["tmp_name"], $targetPosterPath);
+    $sql = $bdd->prepare('UPDATE acteurs SET portrait = ? WHERE id_acteur ='.$id_acteur);
+    $sql->execute([$targetPortraitPath]);
 
-    $sql = $bdd->prepare('UPDATE films SET poster = ? WHERE id_film ='.$id_film);
-    $sql->execute([$targetPosterPath]);
+    move_uploaded_file($_FILES["portrait"]["tmp_name"], "..\\".$targetPortraitPath);
   };
 
-  unset($_SESSION['film']);
+  unset($_SESSION['acteur']);
 
-  echo "le film a bien été mis à jour.";
+  echo "l'acteur a bien été mis à jour.";
+  echo "<a href=\"../admin.php\">Admin</a>";

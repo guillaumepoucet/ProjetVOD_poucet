@@ -70,7 +70,6 @@ require_once '../styleswitcher.php';
             </label>
             <input type="date" id="dateSortie" name="dateSortie" placeholder=""><br>
 
-            <?=$film['dateSortie']?>
             <label for="trailer">Trailer</label>
             <input type="text" id="trailer" name="trailer" placeholder="<?=$film['trailer']?>"><br>
 

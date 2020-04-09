@@ -10,6 +10,7 @@ $portrait = $bdd->prepare ('SELECT portrait FROM acteurs WHERE id_acteur ='.$id_
 $portrait -> execute();
 
 $portrait = $portrait->fetchColumn();
+$portrait = "..\\".$portrait;
 
 unlink($portrait);
 

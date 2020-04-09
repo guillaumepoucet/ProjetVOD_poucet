@@ -54,38 +54,37 @@ require_once '../styleswitcher.php';
     ?>
 
 <div class="db-film-edit">
-    <h3>Vous modifiez <?=$acteurs['prenom']." ".$acteurs['nom']?></h3>
+    <h3>Vous modifiez <?=ucwords($acteur['prenom']." ".$acteur['nom'])?></h3>
 
         <form action="../traitement/actor-edit.php" method="POST" enctype="multipart/form-data">
             
             <?php $_SESSION['acteur'] = $acteur['id_acteur'] ?>
         
-            <label for="nom">Titre du film</label>
-            <input type="text" id="nom" name="nom" placeholder="<?=$film['nom']?>"><br>
+            <label for="nom">Nom</label>
+            <input type="text" id="nom" name="nom" placeholder="<?=$acteur['nom']?>"><br>
 
-            <label for="nom">Titre du film</label>
-            <input type="text" id="nom" name="nom" placeholder="<?=$film['nom']?>"><br>
+            <label for="prenom">Prénom</label>
+            <input type="text" id="prenom" name="prenom" placeholder="<?=$acteur['prenom']?>"><br>
 
-            <label for="dateSortie">Date de sortie : 
-                <?php if(isset($film['dateSortie'])):?>
-                    <?=strftime('%d/%m/%Y', strtotime($film['dateSortie']))?>
+            <label for="dateBirth">Date de naissance : 
+                <?php if(isset($acteur['dateBirth'])):?>
+                    <?=strftime('%d/%m/%Y', strtotime($acteur['dateBirth']))?>
                     <?php endif ?>
             </label>
-            <input type="date" id="dateSortie" name="dateSortie" placeholder=""><br>
+            <input type="date" id="dateBirth" name="dateBirth" placeholder=""><br>
 
-            <?=$film['dateSortie']?>
-            <label for="trailer">Trailer</label>
-            <input type="text" id="trailer" name="trailer" placeholder="<?=$film['trailer']?>"><br>
+            <label for="dateDeath">Date de décès : 
+                <?php if(isset($acteur['dateDeath'])):?>
+                    <?=strftime('%d/%m/%Y', strtotime($acteur['dateDeath']))?>
+                    <?php endif ?>
+            </label>
+            <input type="date" id="dateDeath" name="dateDeath" placeholder=""><br>
 
-            <label for="duree">Durée</label>
-            <input type="number" id="duree" name="duree" placeholder="<?=$film['duree']?>"><br>
-            <p>*en minutes</p><br>
-
-            <label for="synopsis">Synopsis</label>
-            <textarea id="sujet" name="synopsis" style="height:200px" placeholder="<?=$film['synopsis']?>"></textarea><br>
+            <label for="bio">Biographie</label>
+            <textarea id="sujet" name="bio" style="height:200px" placeholder="<?=$acteur['bio']?>"></textarea><br>
             
-            <label for="poster">Affiche</label>
-            <input type="file" id="poster" name="poster"><br>
+            <label for="portrait">Portrait</label>
+            <input type="file" id="portrait" name="portrait"><br>
             
             <br>
             
