@@ -1,9 +1,9 @@
-<div id="actorAdd" class="subtabcontent">
+<div id="userAdd" class="subtabcontent">
     <h3>Ajouter un acteur</h3>
 
-    <div class="insert-actor">
+    <div class="insert-user">
 
-        <form action="traitement/insert-acteur.php" method="POST" enctype="multipart/form-data">
+        <form action="traitement/insert-user.php" method="POST" enctype="multipart/form-data">
 
             <label for="nom">Nom</label>
             <input type="text" id="nom" name="nom" placeholder="Nom" required><br>
@@ -11,17 +11,14 @@
             <label for="prenom">Prénom</label>
             <input type="text" id="prenom" name="prenom" placeholder="Prénom" required><br>
 
-            <label for="dateBirth">Date de naissance</label>
-            <input type="date" id="dateBirth" name="dateBirth"><br>
+            <label for="log_in">Login</label>
+            <input type="text" id="log_in" name="log_in"><br>
 
-            <label for="dateDeath">Date de décès</label>
-            <input type="date" id="dateDeath" name="dateDeath"><br>
+            <label for="motdepasse">Mot de passe</label>
+            <input type="text" id="motdepasse" name="motdepasse"><br>
 
-            <label for="portrait">Portrait</label>
-            <input type="file" id="portrait" name="portrait"><br>
-
-            <label for="synopsis">Biograghie</label>
-            <textarea id="bio" name="bio" placeholder="Biographie" style="height:200px"></textarea><br>
+            <label for="passVerif">Répéter le mot de passe</label>
+            <input type="text" id="passVerif" name="passVerif"><br>
 
             <input type="submit" value="Enregistrer">
 
@@ -31,23 +28,23 @@
 </div>
 
 
-<div id="actorDelete" class="subtabcontent">
-    <h3>Supprimer un acteur</h3>
+<div id="userDelete" class="subtabcontent">
+    <h3>Supprimer un utilisateur</h3>
 
     <div class="delete-actor">
-        <form action="traitement/actor-delete.php" method="POST">
-            <label for="films"><b>Sélectionnez un acteur à supprimer :</b></label>
-            <select name="acteurs" id="acteurs">
+        <form action="traitement/user-delete.php" method="POST">
+            <label for="user"><b>Sélectionnez un acteur à supprimer :</b></label>
+            <select name="user" id="user">
                 <option selected disabled>Sélectionner...</option>
 
                 <?php 
 
-        $req = $bdd->prepare('SELECT * FROM acteurs');
+        $req = $bdd->prepare('SELECT * FROM user');
         $req ->execute();
 
-        while($acteurs = $req->fetch()) {
+        while($user = $req->fetch()) {
         ?>
-                <option value="<?=$acteurs['id_acteur']?>"><?=ucwords($acteurs['nom'] . ", " . $acteurs['prenom'])?>
+                <option value="<?=$user['id_user']?>"><?=ucwords($user['nom'] . ", " . $user['prenom'])?>
                 </option>
                 <?php
         }
@@ -65,9 +62,7 @@
 
         </form>
 
-        <?php if(isset($_GET['actor']) && $_GET['actor'] == 'deleted'): ?>
-        <?= "<p class=\"error msg\">L'acteur a bien été supprimé</p>"?>
-        <?php endif ?>
+
 
     </div>
 </div>

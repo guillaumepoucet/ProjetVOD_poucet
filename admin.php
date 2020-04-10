@@ -57,11 +57,21 @@ require_once 'styleswitcher.php';
         <div class="tabs">
             <input class="tablink" onclick="openPage('user_profile', this, '#FF7200')" type="button" value="Mon profil">
             <input class="tablink" onclick="openPage('userInfoEdit', this, '#FF7200')" value="Modifier mes informations" type="button">
-            <?php if($_SESSION['id_type'] === "3"): ?>
+            <?php if($_SESSION['id_type'] === "2" || $_SESSION['id_type'] === "3"): ?>
                 <input class="tablink" onclick="openPage('db-manage', this, '#FF7200')" type="button" value="Gérer la base de données" id="defaultOpen" >
-                <input class="tablink" onclick="openPage('', this, '#FF7200')" type="button" value="Gérer les membres">
+            <?php endif ?>
+            <?php if($_SESSION['id_type'] === "3"): ?>
+                <input class="tablink" onclick="openPage('db-member', this, '#FF7200')" type="button" value="Gérer les membres">
             <?php endif ?>
         </div>
+
+        <?php if(isset($_GET['actor']) && $_GET['actor'] == 'deleted'): ?>
+        <?= "<p class=\"error msg\">L'acteur a bien été supprimé</p>"?>
+        <?php endif ?>
+        
+            <?php if(isset($_GET['mdp']) &&  $_GET['mdp'] == 0): ?>
+                <?= "<p class=\"error msg\">Les mots de passes ne correspondent pas.</p>"?>
+            <?php endif ?>
 
         <div id="user_profile" class="tabcontent">
             <h3 class="liens-footer">Mes informations</h3>
@@ -88,7 +98,7 @@ require_once 'styleswitcher.php';
             <?php include 'admin/db-manage.php' ?>
         </div>
 
-        <div id="db-manage" class="tabcontent">
+        <div id="db-member" class="tabcontent">
             <?php include 'admin/db-member.php' ?>
         </div>
 

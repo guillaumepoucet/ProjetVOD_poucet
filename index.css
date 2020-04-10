@@ -1008,7 +1008,6 @@ FOOTER {
     display: block;
     width: 100%;
     height: 100%;
-    border-radius: 10px;
 }
 
 .titrefilm {
@@ -1695,8 +1694,14 @@ label {
 #filmDelete,
 #actorAdd,
 #actorEdit,
-#actorDelete {
+#actorDelete,
+#typeManage,
+#typeLink {
     grid-column-start: 2;
+}
+
+.insert-type {
+    margin-bottom: 3em;
 }
 
 .sub-menu h5 {
