@@ -26,17 +26,10 @@ require_once 'styleswitcher.php';
 
     <!--GOOGLE FONTS-->
 
-    <link
-        href="https://fonts.googleapis.com/css?family=Baloo+Tammudu+2:400,500,600,700,800|Ubuntu:300,300i,400,400i,500,500i,700,700i&display=swap"
-        rel="stylesheet">
-    <link
-        href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i|Rubik:300,300i,400,400i,500,500i,700,700i,900,900i&display=swap"
-        rel="stylesheet">
-    <link
-        href="https://fonts.googleapis.com/css?family=Asap:400,400i,500,500i,600,600i,700,700i|Bellota+Text:300,300i,400,400i,700,700i&display=swap"
-        rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Orbitron:700,800,900|Quicksand:300,400,500,600,700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Baloo+Tammudu+2:400,500,600,700,800|Ubuntu:300,300i,400,400i,500,500i,700,700i&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i|Rubik:300,300i,400,400i,500,500i,700,700i,900,900i&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Asap:400,400i,500,500i,600,600i,700,700i|Bellota+Text:300,300i,400,400i,700,700i&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Orbitron:700,800,900|Quicksand:300,400,500,600,700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -56,30 +49,86 @@ require_once 'styleswitcher.php';
     <?php include 'include/nav.php'; ?>
 
 
-<div class="contact-form">
-  <form action="mailto:poucetguillaume@gmail.com" method=POST>
+    <!-- formulaire envoi mail contact -->
+    <div class="contact-form">
+        <form name="contact__form" action="mail.php" method=POST>
 
-    <label for="prenom">Prénom</label>
-    <input type="text" id="fname" name="prenom" placeholder="Votre prénom">
+            <!-- message d'envoi mail success -->
+            <div class="alert-success contact__msg" style="display: none" role="alert">
+                <p>Votre message est bien envoyé.</p>
+            </div>
+            <!-- /message d'envoi mail success -->
 
-    <label for="nom">Nom</label>
-    <input type="text" id="lname" name="nom" placeholder="Votre nom">
+            <label for="prenom">Prénom</label>
+            <input type="text" id="fname" name="fname" placeholder="Votre prénom" required>
 
-    <label for="sujet">Mail</label>
-    <input type="email" id="sujet" name="mail" placeholder="Votre adresse mail">
-    
-    <label for="sujet">Sujet</label>
-    <input type="text" id="sujet" name="sujet" placeholder="Sujet de votre message">
-    
-    <label for="sujet">Votre message</label>
-    <input id="sujet" name="sujet" placeholder="Votre message" style="height:200px"></textarea>
+            <label for="nom">Nom</label>
+            <input type="text" id="lname" name="lname" placeholder="Votre nom" required>
 
-    <input type="submit" value="Submit">
+            <label for="sujet">Mail</label>
+            <input type="email" id="sujet" name="mail" placeholder="Votre adresse mail" required>
 
-  </form>
-</div>
+            <label for="sujet">Sujet</label>
+            <input type="text" id="sujet" name="sujet" placeholder="Sujet de votre message" required>
+
+            <label for="sujet">Votre message</label>
+            <input id="sujet" name="message" placeholder="Votre message" style="height:200px" required></textarea>
+
+            <input type="submit" onClick="sendMail();">
+
+        </form>
+    </div>
+    <!-- /formulaire envoi mail contact -->
 
     <?php include 'include/footer.php'; ?>
+
+    <!-- script envoi mail Ajax -->
+    <script>
+        (function($) {
+            // 'use strict';
+            // "With strict mode, you can not, for example, use undeclared variables."
+            var form = $('.contact__form'),
+                message = $('.contact__msg'),
+                fom_data;
+
+            // fonction message d'alerte succès
+            function mail_sent(response) {
+                message.fadeIn().removeClass('alert-danger').addClass('alert-success');
+                message.text(response);
+                setTimeout(function() {
+                    message.fadeOut();
+                }, 2000);
+                form.find('input:not([type="submit"]), textarea').val('');
+            }
+
+            // fonction message d'alerte fail
+            function mail_fail(data) {
+                message.fadeIn().removeClass('alert-success').addClass('alert-success');
+                message.text(data.responseText);
+                setTimeout(function() {
+                    message.fadeOut();
+                }, 2000);
+            }
+
+            form.submit(function(e) {
+                e.preventDefault();
+                // The preventDefault() method cancels the event if it is cancelable, meaning that the default action that belongs to the event will not occur.
+                form_data = $(this).serialize();
+                // it method creates a text string in standard URL-encoded notation.
+                // should output fname=value de prenom&lname=value de nom&mail=value de mail etc...
+                $.ajax({
+                        type: 'POST',
+                        url: form.attr('action'),
+                        // on récupère l'action du formulaire
+                        data: form_data
+                    })
+                    .done(mail_sent)
+                    .fail(mail_fail);
+            });
+
+        })(jQuery);
+    </script>
+    <!-- script envoi mail Ajax -->
 
 </body>
 
