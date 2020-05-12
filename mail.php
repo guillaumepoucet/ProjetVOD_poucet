@@ -24,10 +24,10 @@
         $content .= "Message:\n$message\n";
 
         # email headers.
-        $headers = "From: $fname . $lname &lt;$mail&gt;";
+        $headers = "From: $fname $lname &lt;$mail&gt;";
 
         # Send the email.
-        $success = mail($mail_to, $subject, $content, $headers);
+        $success = mail($mail_to, $sujet, $content, $headers);
         if ($success) {
             # Set a 200 (okay) response code.
             http_response_code(200);
@@ -35,7 +35,7 @@
         } else {
             # Set a 500 (internal server error) response code.
             http_response_code(500);
-            echo "Oops! Une erreur est apparue. Votre message n'a pas été envoyé";
+            echo "Oops! Une erreur interne est apparue. Votre message n'a pas été envoyé";
         }
 
         } else {
